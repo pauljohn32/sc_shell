@@ -1,0 +1,390 @@
+---
+title: "Command Line, Shell, Scripting"
+subtitle: "Software Carpentry Notes"
+author:
+ - name: Paul Johnson
+   affiliation: Center for Research Methods and Data Analysis, University of Kansas
+   email: pauljohn@ku.edu
+ - name: "CRMDA Guide #41. Please visit [http://crmda.ku.edu/guides](http://crmda.ku.edu/guides) for updates." 
+ - name: "Tags: command line, shell, Linux, Terminal"
+
+abstract: 
+    This uses knitr to interleave shell commands and output, using the CRMDA style sheet.
+checked_by: "First Last"
+Note to Authors: please_dont_change_the_next 4 lines!			
+date: "`r format(Sys.time(), '%Y %B %d')`"
+output:
+  html_document:
+    highlight: haddock
+---
+
+```{r setup, include=FALSE}
+##This Invisible Chunk is required in all CRMDA documents
+outdir <- paste0("tmpout")
+options("prompt" = "$ ")
+options("continue" = "$ ")
+
+if (!file.exists(outdir)) dir.create(outdir, recursive = TRUE)
+knitr::opts_chunk$set(engine="bash", echo=TRUE, comment="output:", prompt = TRUE, fig.path=paste0(outdir, "/p-"))
+options(width = 70)
+```
+
+## Getting Started
+
+### Start a Terminal Emulator
+   * Mac (Utilities/Terminal, iTerm, many others)
+   * Windows (Git for Windows provides a BASH shell)
+   * Linux (many terminal programs, some more exciting than others)
+
+### High points
+   * Type commands, see textual output
+   * Not much pointing and clicking (copy/paste possible on some)
+   
+### What is a Shell?
+   * Computer has many settings that programs can access. A high level program called a "shell" keeps those settings and passes them out to programs when desired
+   * BASH: Bourne Again Shell, a widely-used shell
+   * A terminal program relies on the shell to translate between user and operating system
+   
+#### **Prompt**. Where you type {.bs-callout .bs-callout-info}
+   * Prompt might be verbose 
+```
+pauljohn:Documents/Projects $
+```
+   * On some it is very lean, just the dollar sign
+```
+$
+```
+   * Dollar sign is customary prompt for non-root user (non-administrators)
+   * Prompt is configurable, it is a good exercise for somebody who has used the Terminal for a week or two on a daily basis.
+   
+## Basic things to type
+
+#### What is my user name? Run "whoami" {.bs-callout .bs-callout-warning}
+```{r whoami}
+whoami
+```
+   * What's that doing? *It asks **the environment** for the value of* "$USER". 
+   * We should get the same if we run
+```{r whoami2}
+echo $USER
+```
+**echo**: prints out a value to the screen
+   
+   * I have usually done that, rather than `whoami`.
+   * To be perfectly honest, I did not know `whoami` existed until I watched an SC video. 
+
+
+#### Why did USER have a dollar sign on it?
+
+    * In the standard shell, variables in *the environment* are named with capitals, like "USER"
+    * but to access (retrieve) we need to add dollar sign
+
+#### Where Am I? Run "pwd"
+
+```{r where0, eval=F, include=T}
+pwd
+```
+**pwd**: print working directory
+
+   * Start a "fresh" terminal, the output for the working directory is *almost always* the user HOME folder.
+
+#### Fastest way to HOME folder
+```{r}
+cd
+```
+    * Will see later that cd is a multipurpose command.
+
+#### Where is pauljohn as he works on this document? 
+```{r where1, include=T}
+pwd
+```
+
+#### Where's Home? Operating Systems Differ {.bs-callout .bs-callout-warning}
+```{r showhome}
+echo $HOME
+```
+
+   * Linux  "/home/pauljohn"
+   * Macintosh  "/Users/pauljohn"
+   * Windoze  "/c/Users/pauljohn"
+       * Even though Windows refers to its directory as "C:\\Users\\pauljohn", BASH won't!
+   * FORWARD SLASHES separate directory and file names
+   * Shell "homogenizes" appearance of directories and files across operating systems, making them look Unix-like.
+
+#### What is especially important about HOME? {.bs-callout .bs-callout-danger}
+   * HOME is the only folder where a user is sure to be able to read and write
+   * HOME is where the configuration files are stored. 
+   * Customary: config files and directories begin with the letter "."
+   * Many file-listing programs will NOT print the items that begin with "."
+   * In my HOME, I have folders like ".mozilla", ".thunderbird", ".config", etc
+   * $HOME is often referred to by a shortcut symbol, "~" (tilde)
+   
+#### Setting HOME {.bs-callout .bs-callout-warning} 
+   * Usually, when you start a terminal program, the working directory will be HOME.
+   * Unix, Linux, Mac systems all use environment variable HOME as a key organizing concept.
+   * Windows does not, by default, have an environment variable named HOME!
+       * Some Terminals or Shells will try to guess what HOME ought to be
+       * Windows has other elements in the environment which programs use to guess the HOME
+   * If HOME is not correct, as sometimes happens on Windows
+      * Must fix ASAP, or else nothing we do in the shell will make sense!
+   * Know what HOME ought to be? Can set manually. 
+```
+export HOME="/c/Users/pauljohn"
+```
+    * But there is a way that usually gets the correct answer on Windows, where this is the only place that we see this problem:
+
+```
+export HOME=%USERPROFILE%
+```
+**export**: A BASH shell command that takes the following value and places it into the environment for the duration of the session.
+
+### Portable concepts: All Terminals Today will have
+
+   * History. 
+     * Usually accessed by up arrow key
+     * or the command `history`
+   * **Tab completion**: start typing a command or directory or file name and hit the TAB key
+   * Optional color coded output of file and directory listings
+
+# Listings
+
+#### The "ls" function is a workhorse {.bs-callout .bs-callout-warning} 
+
+   * ls is a short name because it is used very often
+```{r, eval=F}
+ls
+```
+   * Lets make sure your terminal has color-coded output
+      * files should be visibly different from directories or other items
+```{r, eval=F}
+ls --color=always
+```
+
+   * "--color=always" is a *long form* command line **argument**. 
+   * Short form arguments with `ls` are `-l`, `-a`, `-S`, `-1`, `-F`
+   
+   * See why color-coded output in the Terminal was a major breakthrough?
+```{r, eval=F}
+ls --color=never
+```
+   * In the olden days, before color-coded output, they would add the argument -F to put a slash on the end of directory names so that they were visibly different
+```{r}
+ls --color=never -F 
+```
+
+### The ls arguments I use most often are `l` and `a`
+
+    * Default will not list "hidden" items, things that begin with period
+```{r}
+cd
+ls -a
+```
+
+   * The -l argument asks for more comprehensive information
+```{r}
+ls -l
+```
+
+   * Often I put the two together
+```{r}
+ls -la
+```
+
+   * The far left part is read, write, and execute permissions.
+   * Permissions and user group concepts differ across Operating systems and the BASH shell's view of them is not entirely accurate all the time
+      * Well, its accurate, but not "fine-grained".
+
+#### And Now, some PATH magic {.bs-callout .bs-callout-warning} 
+
+   * We can repeatedly display contents of subdirectories
+      * Run `ls`, hopefully you see at least one directory. Suppose that's called "Documents"
+      * Try this
+```{r, eval=F}
+ls Documents
+```
+
+      * If we are lucky, Documents has another directory, say "Papers" inside it
+
+```{r, eval=F}
+ls Documents/Papers
+```
+
+```{r, eval=F}
+ls Documents/Papers
+```
+
+
+
+
+
+
+```{r test-bash, engine='bash'}
+echo hello world
+echo 'a b c' | sed 's/ /\|/g'
+```
+
+How about `sh`?
+
+```{r test-sh, engine='sh'}
+# run wc on all engine examples
+ls | grep engine | head -n8 | xargs wc
+```
+
+
+
+
+
+
+
+
+## In our KU css file, we have special highlighted elements for callouts.  
+
+Callout usage is demonstrated in the following. These
+   are always preceeded by four # signs. Yes, ####. We stole this idea
+   from other styles and put them into ours. See usage of {.bs-callout
+   .bs-callout-whatever_you_put here}, where whatever_you_put_here is
+   either "danger", "warning" or "info". We might be able to negotiate
+   you you on the choice of colors.  Run the render script with this
+   document, you'll see what we mean.
+	
+
+#### Danger: Elements to fix {.bs-callout .bs-callout-danger}
+1) topical tags, first of which is "guide"
+
+      a) we need a list of legal tags
+
+      b) way to enforce the tags
+
+      c) way to make them available better than making them a co-author
+
+2) Wish header had comment like ("this document was retrieved from
+CRMDA") without making it a coauthor
+
+#### Note: Policies about writing in these documents. {.bs-callout .bs-callout-warning}
+
+1. Blank rows separate paragraphs.
+
+2. The character width of rows should be 80 or less.  I have
+no idea how anybody thinks they have a right to impose an
+infinitely long row, but its bad.  Edit the document
+with Emacs, run M-q to get repositioned text.  If your
+editor cannot do that, quit using it.
+
+#### Info: Use these callouts to attract attention {.bs-callout .bs-callout-info}
+
+1. You can use danger (red), warning (orange), or info (blue)
+
+2. Must make sure compiling using the kutils.css located in the kutils package
+e.g., `rmarkdown::render("template-guide.Rmd", html_document(css = system.file("rmarkdown/",`  
+`"kutils.css",package = "kutils")))`
+
+## You have the ability to include tabs {.tabset .tabset-fade}
+
+If you'd like, you can include different tabs. Maybe you want to show two similar versions of the same analysis. Or maybe something else. Whatever it may be, be sure to include `{.tabset .tabset-fade}` along with a level 2 header (##). For each tab, put the information under the level 3 header (###). Use another level 2 header to get out of the tabs mode.
+
+The only way (that we know of) to get colors is to wrap the tab headers in a `<span style>` as shown below. This might be useful to draw attention to the tabs. Blue is the default color.
+
+#### Info: What it looks like {.bs-callout .bs-callout-info}
+
+```
+## You have the ability to include tabs {.tabset .tabset-fade}
+
+If you'd like, you can include different tabs. Maybe you want to show two similar versions of the same analysis. Or maybe something else. Whatever it may be, be sure to include `{.tabset .tabset-fade}` along with a level 2 header (##). For each tab, put the information under the level 3 header (###). Use another level 2 header to get out of the tabs mode.
+
+The only way (that we know of) to get colors is to wrap the tab headers in a `<span style>` as shown below. This might be useful to draw attention to the tabs. Blue is the default color.
+
+### <span style="color:red">First Tab Here</span>
+
+Some information you'd like to show.
+
+### <span style="color:orange">Second Tab Here</span>
+
+Some more information you'd like to show.
+
+### Third Tab Here
+
+Some final information you'd like to show.
+
+## Equations can be written in LaTeX, either "inline" or "display" mode.
+```
+
+## {.tabset .tabset-fade}
+
+### <span style="color:red" "background-color:blue">First Tab Here</span>
+
+Some information you'd like to show.
+
+### <span style="color:orange">Second Tab Here</span>
+
+Some more information you'd like to show.
+
+### Third Tab Here
+
+Some final information you'd like to show.
+
+## Equations can be written in LaTeX, either "inline" or "display" mode.
+
+Equations can be introduced in the style of LaTeX.  If the document
+is processed into a pdf file, the LaTeX programs will be used, but
+if the document is rendered to HTML, then symbolic questions are positioned
+into the output and then the MathJax javascript framework is used to
+display the math in the browser.
+
+Typing the markup is like writing in LaTeX.  Two dollar signs ($\$$)
+surround an inline mathematical expression while a display equation
+(centered and separated) is bracketed by two dollar signs ($\$\$$).
+The two dollar signs are often written on a line by themseves
+for visual separation. We note that other methods that are used to
+initiate display equations in latex also work, including $\[$ or
+$\begin{equation}$.
+
+\textbackslash{}begin\{equation\} and \textbackslash{}end\{equation\}
+and \textbackslash{}[ and \textbackslash{}] generate the same. We need
+to know if there is a recommended style.
+
+Fractions (\\frac{}{}): $\frac{2}{3}$.
+
+Hats (\\hat{}): $\hat{\lambda}=1.02$.
+
+Square Root (\\sqrt{}), $\sqrt{4}=2$.
+
+$$\alpha, \beta,  \gamma, \Gamma$$
+
+Some popular binary operators are
+$$ + - = \ne \ge \lt \pm $$
+$$x \ge 15$$
+$$a_i \ge 0~~~\forall i$$
+
+## Matrix
+
+$$
+A_{m,n} =
+ \begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+ \end{pmatrix}
+$$
+
+This example uses the alternative display math $\[$, and
+a different type of matrix.
+
+\begin{equation}
+A_{m,n} = \left(\begin{array}{ccc}
+a & b & c\\
+d & e & f\\
+g & h & i
+\end{array}\right)
+\label{eq:another1}
+\end{equation}
+
+After some testing, it appears also that many
+LaTeX symbols that we would expect to use have no benefit in Rmd
+documents.
+
+
+
+We don't know if there is a comprehensive list of which LaTeX math
+symbols are allowed, but we wish somebody would find one.
+
