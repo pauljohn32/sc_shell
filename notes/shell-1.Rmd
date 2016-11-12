@@ -1,6 +1,6 @@
 ---
-title: "Command Line, Shell, Scripting"
-subtitle: "Software Carpentry Notes"
+title: "Command Line, Shell"
+subtitle: "Software Carpentry Notes #1"
 author:
  - name: Paul Johnson
    affiliation: Center for Research Methods and Data Analysis, University of Kansas
@@ -11,7 +11,7 @@ author:
 abstract: 
     This uses knitr to interleave shell commands and output, using the CRMDA style sheet.
 checked_by: "First Last"
-Note to Authors: please_dont_change_the_next 4 lines!			
+Note to Authors: please_dont_change_the_next 4 lines!
 date: "`r format(Sys.time(), '%Y %B %d')`"
 output:
   html_document:
@@ -29,11 +29,21 @@ knitr::opts_chunk$set(engine="bash", echo=TRUE, comment="output:", prompt = TRUE
 options(width = 70)
 ```
 
-## Getting Started
+
+```{r, include=F}
+## Cleaning out trash from previous runs
+if [ -d success ]; then rm -rf success; fi
+if [ -d wonderful ]; then rm -rf wonderful; fi
+if [ -d ~/success ]; then rm -rf ~/success; fi
+if [ -d ~/wonderful ]; then rm -rf ~/wonderful; fi
+```
+
+
+## Getting Started in the Shell
 
 ### Start a Terminal Emulator
    * Mac (Utilities/Terminal, iTerm, many others)
-   * Windows (Git for Windows provides a BASH shell)
+   * Windows (Git for Windows provides a BASH shell). Others available (Cygwin, Ubuntu BASH for Windows)
    * Linux (many terminal programs, some more exciting than others)
 
 ### High points
@@ -41,8 +51,9 @@ options(width = 70)
    * Not much pointing and clicking (copy/paste possible on some)
    
 ### What is a Shell?
-   * Computer has many settings that programs can access. A high level program called a "shell" keeps those settings and passes them out to programs when desired
+   * Computer has many settings that programs can access. A "shell" is a "behind the scenes" program that keeps those settings and passes them out to programs when needed
    * BASH: Bourne Again Shell, a widely-used shell
+   * Almost all Unix/Mac systems will have many shell programs available, such as "sh", "bash", "dash", and so forth. We are mostly interested in BASH because it has the most user comfort
    * A terminal program relies on the shell to translate between user and operating system
    
 #### **Prompt**. Where you type {.bs-callout .bs-callout-info}
@@ -89,6 +100,8 @@ pwd
    * Start a "fresh" terminal, the output for the working directory is *almost always* the user HOME folder.
 
 #### Fastest way to HOME folder
+
+   * If you find your working directory is not the HOME folder, the fastest way home is
 ```{r}
 cd
 ```
@@ -99,7 +112,7 @@ cd
 pwd
 ```
 
-#### Where's Home? Operating Systems Differ {.bs-callout .bs-callout-warning}
+#### Where's HOME? Operating Systems Differ {.bs-callout .bs-callout-warning}
 ```{r showhome}
 echo $HOME
 ```
@@ -119,33 +132,66 @@ echo $HOME
    * In my HOME, I have folders like ".mozilla", ".thunderbird", ".config", etc
    * $HOME is often referred to by a shortcut symbol, "~" (tilde)
    
-#### Setting HOME {.bs-callout .bs-callout-warning} 
+#### Setting HOME {.bs-callout .bs-callout-info} 
    * Usually, when you start a terminal program, the working directory will be HOME.
    * Unix, Linux, Mac systems all use environment variable HOME as a key organizing concept.
    * Windows does not, by default, have an environment variable named HOME!
        * Some Terminals or Shells will try to guess what HOME ought to be
-       * Windows has other elements in the environment which programs use to guess the HOME
-   * If HOME is not correct, as sometimes happens on Windows
+   * If the Terminal program guesses incorrectly, we should fix ASAP
       * Must fix ASAP, or else nothing we do in the shell will make sense!
-   * Know what HOME ought to be? Can set manually. 
+   * Know what HOME ought to be? Can set manually within the current shell's session. 
 ```
 export HOME="/c/Users/pauljohn"
 ```
-    * But there is a way that usually gets the correct answer on Windows, where this is the only place that we see this problem:
+    * But there should be some better, less error-prone way. This is slightly better:
 
 ```
-export HOME=%USERPROFILE%
+export HOME="/c/Users/$USER"
 ```
+	
 **export**: A BASH shell command that takes the following value and places it into the environment for the duration of the session.
 
+    * A more permanent and direct approach is to create an environment variable within the Windows system, which Git BASH can then inherit.  This can be done in Control Panel -> System menu, but it can also be done in a DOS Command box:
+
+```{r, eval=F}
+setx HOME "%USERPROFILE%" 
+```
+			
 ### Portable concepts: All Terminals Today will have
 
    * History. 
-     * Usually accessed by up arrow key
-     * or the command `history`
+      * Usually accessed by up arrow key
+	     * up arrow restores previous command, can edit and re-run
+      * or the command `history`
    * **Tab completion**: start typing a command or directory or file name and hit the TAB key
    * Optional color coded output of file and directory listings
+   * Many Terminals have magic short-cut keys (that I did not know about until recently)
+      * Ctl-R reverse search in history
+	  * Ctl-k erase command line from cursor to the end
 
+### Better check what shell I'm running
+```{r}
+echo $SHELL
+```
+	  
+### Quick Summary:
+   * Terminals have command lines
+   * Shells watch what you type and try to gather information and put it to use
+   * HOME: a special user-controlled file folder where user documents and configurations are stored
+   * Environment: a place where the Shell stores its information
+   * pwd: displays the working directory name. Important because programs often assume the WD is the place where files are found or to be created.
+   * cd: takes user to the HOME folder, from any WD
+   * echo: prints out information to the terminal
+
+#### In case you are **curious for adventure**?  {.bs-callout .bs-callout-danger}
+   * Run this to see all of the variables in your shell's environment. But be ready for a *big, unintelligible splat*.
+```{r, eval=F}
+env
+```
+   * Now you should see why we checked individual itty-bitty-pieces from the environment with `whoami` or `echo $USER` or `echo $HOME`.
+
+
+   
 # Listings
 
 #### The "ls" function is a workhorse {.bs-callout .bs-callout-warning} 
@@ -154,7 +200,9 @@ export HOME=%USERPROFILE%
 ```{r, eval=F}
 ls
 ```
-   * Lets make sure your terminal has color-coded output
+   * I'm unable to show you my color-coded command line in this document because the colors are lost in the document compilation process. But can show you in person :)
+	
+   * Make sure your terminal has color-coded output
       * files should be visibly different from directories or other items
 ```{r, eval=F}
 ls --color=always
@@ -164,19 +212,28 @@ ls --color=always
    * Short form arguments with `ls` are `-l`, `-a`, `-S`, `-1`, `-F`
    
    * See why color-coded output in the Terminal was a major breakthrough?
-```{r, eval=F}
+```{r}
 ls --color=never
 ```
    * In the olden days, before color-coded output, they would add the argument -F to put a slash on the end of directory names so that they were visibly different
 ```{r}
 ls --color=never -F 
 ```
+   * On Mac and Linux, one can read the built-in manual page for ls to see all possibilities  
 
-### The ls arguments I use most often are `l` and `a`
+```{r, eval=F}
+man ls
+```
+
+   * In Git BASH, those documents were omitted, so one can Google search "man ls".
+   
+
+
+	
+### The ls arguments I use most often are `-l` and `-a`
 
     * Default will not list "hidden" items, things that begin with period
 ```{r}
-cd
 ls -a
 ```
 
@@ -191,7 +248,8 @@ ls -la
 ```
 
    * The far left part is read, write, and execute permissions.
-   * Permissions and user group concepts differ across Operating systems and the BASH shell's view of them is not entirely accurate all the time
+   * Windows handles permissions differently than Unix/Linux, so
+   	  * The BASH shell's view of them is not entirely accurate all the time
       * Well, its accurate, but not "fine-grained".
 
 #### And Now, some PATH magic {.bs-callout .bs-callout-warning} 
@@ -209,182 +267,501 @@ ls Documents
 ls Documents/Papers
 ```
 
+   * That is a "**relative path**", the directories are viewed within context of current directory.
+
+	
+
+```{r, eval=F}
+ls ..
+```
+   * What is ".."?
+```{r, eval=F}
+ls ../..
+```
+	
+```{r, eval=F}
+ls /
+```
+   * Mac & Linux differ from MS DOS/Windows on the definition of the "top level" folder.
+      * Mac & Linux: the highest level accessible is always "/", the root directory
+	     * external devices are "mounted" somewhere under "/"
+      * Windows "top level" is "My Computer", in which different drives are lettered
+	     * C:\  (Typical "Main drive")
+		 * D:\
+      * The Shell represents that Windows tendency by engulfing the lettered devices within a higher level "/", so within the Git BASH shell on Windows, these appear as
+
+```{r, eval=F}
+/c/
+```	
+
+   * Suppose $HOME is /c/Users/pauljohn
+
+If we set the working directory as $HOME with
+```{r, eval=F}
+cd
+```  
+   
+Then inspecting a sub-folder with   
 ```{r, eval=F}
 ls Documents/Papers
 ```
+is equivalent to using a full, absolute path
+```{r, eval=F}
+ls /c/Users/pauljohn/Documents/Papers
+```	
+	
+   * The "**absolute path**" always begin with "/" and it explicitly shows each directory name.
 
-
-
-
-
-
-```{r test-bash, engine='bash'}
-echo hello world
-echo 'a b c' | sed 's/ /\|/g'
+   * Many ways to show HOME (if working directory is somewhere else)
+```{r, eval=F}
+ls $HOME
 ```
+Is the same as
 
-How about `sh`?
-
-```{r test-sh, engine='sh'}
-# run wc on all engine examples
-ls | grep engine | head -n8 | xargs wc
+```{r, eval=F}
+ls ~
 ```
-
-
-
-
-
-
-
-
-## In our KU css file, we have special highlighted elements for callouts.  
-
-Callout usage is demonstrated in the following. These
-   are always preceeded by four # signs. Yes, ####. We stole this idea
-   from other styles and put them into ours. See usage of {.bs-callout
-   .bs-callout-whatever_you_put here}, where whatever_you_put_here is
-   either "danger", "warning" or "info". We might be able to negotiate
-   you you on the choice of colors.  Run the render script with this
-   document, you'll see what we mean.
+And relative PATH will work in an understandable way
+```{r, eval=F}
+ls ~/Documents
+```
 	
 
-#### Danger: Elements to fix {.bs-callout .bs-callout-danger}
-1) topical tags, first of which is "guide"
+## Quick Summary
+ 
+   * ls: a program for listing contents of folders	
+   * PATH: directory names separated by "/"
+   * ~ is a synonym for $HOME
 
-      a) we need a list of legal tags
 
-      b) way to enforce the tags
 
-      c) way to make them available better than making them a co-author
+# Change the working directory
 
-2) Wish header had comment like ("this document was retrieved from
-CRMDA") without making it a coauthor
+#### cd: change directory
+  * We already saw that `cd` (without arguments) returns user to $HOME
+  * More generally `cd` can change the specified working directory
 
-#### Note: Policies about writing in these documents. {.bs-callout .bs-callout-warning}
+### `cd` examples everybody should try.
 
-1. Blank rows separate paragraphs.
+   * First, run `ls -F` to find a directory name (thing with slash on end), e.g. `Desktop`, then
 
-2. The character width of rows should be 80 or less.  I have
-no idea how anybody thinks they have a right to impose an
-infinitely long row, but its bad.  Edit the document
-with Emacs, run M-q to get repositioned text.  If your
-editor cannot do that, quit using it.
-
-#### Info: Use these callouts to attract attention {.bs-callout .bs-callout-info}
-
-1. You can use danger (red), warning (orange), or info (blue)
-
-2. Must make sure compiling using the kutils.css located in the kutils package
-e.g., `rmarkdown::render("template-guide.Rmd", html_document(css = system.file("rmarkdown/",`  
-`"kutils.css",package = "kutils")))`
-
-## You have the ability to include tabs {.tabset .tabset-fade}
-
-If you'd like, you can include different tabs. Maybe you want to show two similar versions of the same analysis. Or maybe something else. Whatever it may be, be sure to include `{.tabset .tabset-fade}` along with a level 2 header (##). For each tab, put the information under the level 3 header (###). Use another level 2 header to get out of the tabs mode.
-
-The only way (that we know of) to get colors is to wrap the tab headers in a `<span style>` as shown below. This might be useful to draw attention to the tabs. Blue is the default color.
-
-#### Info: What it looks like {.bs-callout .bs-callout-info}
-
+```{r, eval=F}
+cd Desktop
+pwd
+ls -F
 ```
-## You have the ability to include tabs {.tabset .tabset-fade}
+**cd**: change the working directory	
 
-If you'd like, you can include different tabs. Maybe you want to show two similar versions of the same analysis. Or maybe something else. Whatever it may be, be sure to include `{.tabset .tabset-fade}` along with a level 2 header (##). For each tab, put the information under the level 3 header (###). Use another level 2 header to get out of the tabs mode.
+   * If `ls` shows there is another directory, then `cd` into it. Run `ls` again
 
-The only way (that we know of) to get colors is to wrap the tab headers in a `<span style>` as shown below. This might be useful to draw attention to the tabs. Blue is the default color.
+   * Run `cd` to go back to HOME.
 
-### <span style="color:red">First Tab Here</span>
+   * Now please verify the following.
+      1. TAB completion works. If you type `cd Des` and stop typing, and then hit TAB, does it auto-complete the word Desktop?
+	  2. Continue with autocompletion. When "Desktop" is filled in, hit TAB a couple of times. It will show nothing if there are no directories within Desktop, but if there are, it will show them on the screen.
+	  3. Type the first few letters of a directory name, hit TAB again.
+   * After all of that TABing, you shoud have a prompt that looks like this
+```{r, eval=F}
+cd Desktop/whatever_subdir
+```
+      * hit enter, then run `pwd` to make sure you are in there
+	  * perhaps the prompt changed to let you know, without running pwd
 
-Some information you'd like to show.
+   * Oops, you went one too far! Go back
+```{r, eval=F}
+cd ..
+```   
+   * Benefits of TAB completion. *Too numerous to write out in their entirety* :)
 
-### <span style="color:orange">Second Tab Here</span>
 
-Some more information you'd like to show.
 
-### Third Tab Here
 
-Some final information you'd like to show.
+   
 
-## Equations can be written in LaTeX, either "inline" or "display" mode.
+# Make a directory
+
+#### This will change something in your computer, so pay attention {.bs-callout .bs-callout-danger}
+
+   * Change to a directory where you would put your work for today.
+   * Most people choose (e.g., Desktop or Documents)
+
+```{r, eval=F}
+cd Desktop
+```
+   * Make a new directory
+   	
+```{r, eval=F}
+mkdir sc-20161115
+```
+**mkdir**: make a new directory
+
+   * Make sure it is there with `ls`
+   * Change into that directory, (don't forget TAB completion)!
+
+   * recursive (nested) directories
+
+      * By default, `mkdir` is willing to create only one new "layer".
+
+	  * `mkdir Desktop/sc-20161115/topdir/middir/lowerdir` will be rejected.
+	  * To create a hierarchy of directories in one command, add the `-p` flag
+```{r, eval=F}
+mkdir -p Desktop/sc-20161115/topdir/middir/lowerdir
 ```
 
-## {.tabset .tabset-fade}
-
-### <span style="color:red" "background-color:blue">First Tab Here</span>
-
-Some information you'd like to show.
-
-### <span style="color:orange">Second Tab Here</span>
-
-Some more information you'd like to show.
-
-### Third Tab Here
-
-Some final information you'd like to show.
-
-## Equations can be written in LaTeX, either "inline" or "display" mode.
-
-Equations can be introduced in the style of LaTeX.  If the document
-is processed into a pdf file, the LaTeX programs will be used, but
-if the document is rendered to HTML, then symbolic questions are positioned
-into the output and then the MathJax javascript framework is used to
-display the math in the browser.
-
-Typing the markup is like writing in LaTeX.  Two dollar signs ($\$$)
-surround an inline mathematical expression while a display equation
-(centered and separated) is bracketed by two dollar signs ($\$\$$).
-The two dollar signs are often written on a line by themseves
-for visual separation. We note that other methods that are used to
-initiate display equations in latex also work, including $\[$ or
-$\begin{equation}$.
-
-\textbackslash{}begin\{equation\} and \textbackslash{}end\{equation\}
-and \textbackslash{}[ and \textbackslash{}] generate the same. We need
-to know if there is a recommended style.
-
-Fractions (\\frac{}{}): $\frac{2}{3}$.
-
-Hats (\\hat{}): $\hat{\lambda}=1.02$.
-
-Square Root (\\sqrt{}), $\sqrt{4}=2$.
-
-$$\alpha, \beta,  \gamma, \Gamma$$
-
-Some popular binary operators are
-$$ + - = \ne \ge \lt \pm $$
-$$x \ge 15$$
-$$a_i \ge 0~~~\forall i$$
-
-## Matrix
-
-$$
-A_{m,n} =
- \begin{pmatrix}
-  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-  \vdots  & \vdots  & \ddots & \vdots  \\
-  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
- \end{pmatrix}
-$$
-
-This example uses the alternative display math $\[$, and
-a different type of matrix.
-
-\begin{equation}
-A_{m,n} = \left(\begin{array}{ccc}
-a & b & c\\
-d & e & f\\
-g & h & i
-\end{array}\right)
-\label{eq:another1}
-\end{equation}
-
-After some testing, it appears also that many
-LaTeX symbols that we would expect to use have no benefit in Rmd
-documents.
+## Quick Summary
+ 
+   * mkdir: creates a directory. Only adds "one level deeper"
 
 
+   * mkdir -p: create recursively  
 
-We don't know if there is a comprehensive list of which LaTeX math
-symbols are allowed, but we wish somebody would find one.
+
+	
+# Worlds Collide
+  
+   * Lets figure out how to see your new directory Desktop/sc-20161115
+     in your "Modern Graphical Operating System".
+   
+   * Launch a file manager in the usual way (Windows Explorer, Mac Finder, Linux
+     Nautilus, etc)
+
+	    * Navigate to Desktop/sc-20161115
+
+   * Terminal programs can launch those file managers		
+   
+   * Git BASH for Windows includes a shortcut command. Type
+   
+```{r, eval=F}
+explorer .
+```
+   * Terminal on Macintosh can launch a File Finder:
+   
+```{r, eval=F}
+open .
+```
+
+	* In both of these, "." means "Current Working Directory"
+	
+##  Please do some practices
+	
+   * Make a disposable directory.
+```{r, eval=F}
+cd
+mkdir -p Desktop/mistake
+```
+	
+   * Check to see if the directory mistake is visible
+   
+      * inside the Terminal
+	  
+      * in the graphical file manager program
+
+   * Use the graphical file manager to create a directory inside `mistake`.
+
+   * Make sure you can see that from inside the terminal
+
+   * Then create an empty file this way
+
+```{r, eval=F}
+cd Desktop/mistake
+touch great_file.txt
+```
+
+**touch**: sets current time on a file. If no file exists, create
+  emtpty file with that date.
+
+   * Run `ls -la` to make sure the file is there
+
+   * Use the graphical file manager program to see if "great_file.txt"
+     exists.
+
+   * Does right-click "edit with" give you any candidate editors? We
+     need a text editor. Not a Word Processor (Word, Libre Office),
+     but rather a "flat text" editor. Save the file.
+
+   * Back in the terminal, lets inspect what happened.
+   
+```{r, eval=F}
+ls -la
+cat great_file.txt
+```
+**cat**: opens file and displays it from top to bottom	
+	
+   * There are editors that work well "in the terminal", but using
+     them is a lost art, except among programmers and truly
+	 devoted terminal-loving data scientists. My
+     Mom could do this in 1985, you could too.
+   
+      * nano is available on most Mac and Linux systems, and it
+        *might* be available in a Windows BASH shell program.
+
+	  * vi is an old old fast fast flat text editor I can demonstrate.
+
+		 * It will be launched often by programs like Git, so one must
+           get some tolerance for it.
+		 
+         * The get out of jail keystrokes: `Esc : wq` (Yes, Escape,
+           followed by a colon. If you watch the very bottom of the terminal,
+		   you get a hint it is accepting commands. Then type `w` and `q` (to
+		   "write" and "quit")
+		   
+      * I'm an Emacs enthusiast, but NOT in the terminal. That's too
+        severe without menus.
+
+	     * The get-out-of-jail key sequence is `Ctl-x Ctl-c` to close it down.
+
+## Quick Summary
+ 
+   * A part of the hard disk file storage can be thought of as
+     'shared' content between 2 separate systems.
+
+   * Shell commands like "mkdir" and "cd" have obvious equivalents in
+     the GUI File Manager
+
+   * A benefit of the Terminal/Shell is that problems too big, which
+     would overwhelm the GUI, can still be done.
+
+
+		 
+# Delete directories and files
+
+#### Terminal Defaults: no "safety net"{.bs-callout .bs-callout-danger}
+
+   * There's no "Trash Can" built into the shell
+
+   * Default setup will not ask "do you really mean to delete that?"
+     It will just do it.
+
+   * There is a "safe delete" flag, `-i`
+
+      * If that is included in usage of all file mover/destroyer functions,
+      system will not follow your orders right away.
+
+      * When I go to a new computer account, the first thing I do is
+        insert a shell configuration that inserts `-i` with all usages of `rm`,
+        `cp` and `mv`.  (keywords: `alias` and `profile`).
+
+### `rm` deletes things	 
+	 
+   * `cd` into directory that has the trash file we were fiddling with "great_file.txt"
+
+   * Delete that file
+
+```{r, eval=F}
+rm great_file.txt
+```
+   * If there is no message, that means it worked!
+      * Check in the terminal with `ls`
+	  * Check in the GUI file manager
+
+### Delete a directory that is not empty
+
+	* rm will refuse a request to delete a non-empty directory
+
+      * Error message will be something like
+```      
+	rm: cannot remove 'mistake': Is a directory
+```
+
+	* Flags "-r" and "-f" override that resistance
+
+	   * "**-r**": recursive
+	   * "**-f**": force (don't bother me with warnings)
+
+ 	* If the mistake directory is still there, get rid of it
+
+```{r, eval=F}
+cd
+cd Desktop
+ls mistake
+rm -rf mistake
+```
+
+### A Safer Workflow might Use move commands, which we will see
+	next.
+	 
+	   
+## Quick Summary
+ 
+   * rm: can remove a file, or several files.
+   * rm -rf: remove a folder and everything in it  
+   * The default setup has no warning or "do you really want to do this?"
+
+
+
+# Move and Rename: same thing!
+
+####  mv is multi-talented {.bs-callout .bs-callout-info}
+ 
+   * General syntax `mv x y`
+
+      * x is the source
+
+      * y is the target
+
+   * If x is a directory, and
+
+      * y does not exist, then x is renamed as y
+
+   * If y is a directory name that already exists, x is moved inside y.
+
+
+   * Re-create the mistake directory.
+      * Use cd to reposition yourself
+   
+```{r}
+mkdir mistake
+```
+	   * Spawn a few empty files in there
+```{r}
+touch mistake/myfile1.txt
+touch mistake/myfile2.txt
+ls -la mistake
+```
+
+```{r}
+ls -laF
+``` 
+### Move a directory = rename that directory
+
+```{r}
+ls -laF
+``` 
+
+
+```{r}
+mv mistake success
+``` 
+
+```{r}
+ls -laF
+``` 
+
+Check that the files are still in there
+
+```{r}
+ls -laF success
+``` 
+
+### Move a directory = relocate whole directory (and all contents within)
+
+   * In previous example, the target directory "success" did not exist, so
+     Shell understood what we needed.
+
+   * If target directory did exist, then whole "mistake" directory would
+     be moved into it.
+
+```{r}
+mkdir wonderful
+ls -F
+```    
+
+```{r}
+mv success wonderful
+```
+
+```{r}
+ls -F wonderful
+```
+
+### Move a directory "Up" to $HOME directory
+
+```{r}
+cd wonderful
+mv success ~/
+```
+"**~**": shorthand for $HOME
+
+### Go back one level and retrieve that directory in there
+```{r}
+cd ..
+pwd
+## mv ~/success  .
+```
+
+"**.**": is shorthand for here!, the current working directory
+
+## Poor Person's Trash Folder
+
+   * My aim is to create a Trash directory in my home account.
+
+```{r}
+if [ ! -d ~/Trash ] 
+then 
+   mkdir ~/Trash
+fi
+```
+   
+   * apologize for the if/then magic, will explain in shell-2.
+
+
+Instead of running `rm` on unwanted things, consider
+
+```{r}
+mv wonderful ~/Trash 
+```
+
+```{r}
+ls -laF ~/Trash
+```
+
+## Quick Summary
+  
+   * `mv x y` will rename a file x as y if y does not exist
+ 
+   * `mv x y` will move x into y if y is a directory
+
+   * `mv x y` will obliterate y if y is a file
+
+   * `y` can be a relative or absolute path 
+
+
+
+# `cp` is for Copy: suprisingly different from move
+
+### Syntax looks similar where files are concerned
+
+   * `cp x y` # copies file `x` to file name `y`
+   * `cp -R x y` # copies *recursively* directory x to y
+   * recall I always have `-i` on uses of rm, cp, and mv
+
+
+   * Like mv, if y is a directory that exists, then x is moved within it.
+
+   * Biggest difference from `mv` is that `cp` will do nothing to copy a directory
+   if you forget the -R. 
+      * Error is like this
+ ```
+$  cp success ~/Trash
+cp: omitting directory 'success'
+ ```     
+
+ # Big summary. We have reviewed
+
+### The important creature comforts of a terminal
+
+   * TAB completion
+   * History (up arrow or "history" command)
+   * Syntax highlighting
+
+### Key concepts
+   * HOME folder, known as ~
+   * Absolute path begins with /, the root directory
+   * Relative path begins with
+      * directory name in current directory if "going downwards"
+      * "../" if "going up" before possibly going downward again    
+
+ ### We have reviewed the most essential commands needed to navigate in a Terminal/Shell
+
+`pwd` print working directory
+`ls` list files
+`cd` change directory
+`mkdir` create a directory
+`rm`, `mv`, `cp`: remove, move and copy directories and files
+
+### And some less vital, but useful commands
+
+`echo $XYZ` prints out the contents of an environment variable `XYZ`
+`cat xyz` prints out the contents of a file named `xyz`
+`env` prints out the entire contents of the environment
 

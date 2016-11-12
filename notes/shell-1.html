@@ -259,20 +259,21 @@ This uses knitr to interleave shell commands and output, using the CRMDA style s
 <li>Windows does not, by default, have an environment variable named HOME!
 <ul>
 <li>Some Terminals or Shells will try to guess what HOME ought to be</li>
-<li>Windows has other elements in the environment which programs use to guess the HOME</li>
 </ul></li>
-<li>If HOME is not correct, as sometimes happens on Windows
+<li>If the Terminal program guesses incorrectly, we should fix ASAP
 <ul>
 <li>Must fix ASAP, or else nothing we do in the shell will make sense!</li>
 </ul></li>
-<li><p>Know what HOME ought to be? Can set manually.</p>
+<li><p>Know what HOME ought to be? Can set manually within the current shell’s session.</p>
 <pre><code>export HOME=&quot;/c/Users/pauljohn&quot;</code></pre>
 <ul>
-<li>But there should be some better, less error-prone way. I’m checking around. This is only slightly less dangerous because it assumes the user folders are on “C:&quot;:</li>
+<li>But there should be some better, less error-prone way. This is slightly better:</li>
 </ul></li>
 </ul>
 <pre><code>export HOME=&quot;/c/Users/$USER&quot;</code></pre>
 <p><strong>export</strong>: A BASH shell command that takes the following value and places it into the environment for the duration of the session.</p>
+<pre><code>* A more permanent and direct approach is to create an environment variable within the Windows system, which Git BASH can then inherit.  This can be done in Control Panel -&gt; System menu, but it can also be done in a DOS Command box:</code></pre>
+<pre class="bash"><code>$ setx HOME &quot;%USERPROFILE%&quot; </code></pre>
 </div>
 <div id="portable-concepts-all-terminals-today-will-have" class="section level3">
 <h3>Portable concepts: All Terminals Today will have</h3>
@@ -371,187 +372,39 @@ output: tmpout/</code></pre>
 <div id="the-ls-arguments-i-use-most-often-are--l-and--a" class="section level3">
 <h3>The ls arguments I use most often are <code>-l</code> and <code>-a</code></h3>
 <pre><code>* Default will not list &quot;hidden&quot; items, things that begin with period</code></pre>
-<pre class="bash"><code>$ cd
-$ ls -a</code></pre>
+<pre class="bash"><code>$ ls -a</code></pre>
 <pre><code>output: .
 output: ..
-output: 50-synaptics.conf
-output: 60-synaptics.conf
-output: 61-evdev-local-pj.hwdb
-output: 61-evdev-local-pu.hwdb
-output: 90-libinput.conf
-output: 90-synaptics.conf~
-output: 90-synaptics.conf-20160729
-output: .adobe
-output: adsf.R
-output: #afd.R#
-output: #asdf.R#
-output: Backgrounds
-output: .bash_history
-output: .bashrc
-output: Best_of_Lawrence-CRMDA.jpg
-output: bin
-output: .bundle
-output: .cache
-output: .config
-output: CRMDA
-output: crmda-memo.tex
-output: .cxoffice
-output: .dbus
-output: dell_precision_ubuntu.txt
-output: Dell_Ubuntu.txt
-output: Desktop
-output: .directory
-output: .dmrc
-output: Documents
-output: dot.emacs.d
-output: Downloads
-output: .dropbox
-output: Dropbox
-output: .dropbox-dist
-output: .e
-output: .elementary
-output: .emacs.d
-output: #flope.R#
-output: #flop.R#
-output: flop.R~
-output: Fridgerator=241856000en.pdf
-output: .gconf
-output: .gem
-output: .gimp-2.8
-output: GIT
-output: .gitconfig
-output: #git-lfs-bfg-guides.txt#
-output: git-lfs-bfg-guides.txt
-output: git-lfs-bfg-guides.txt~
-output: gittest
-output: .gksu.lock
-output: .gnome2
-output: .gnome2_private
-output: .gnupg
-output: gtk.css
-output: .gtkrc-2.0
-output: .gtk-recordmydesktop
-output: .hplip
-output: .ICEauthority
-output: IPaddresses.txt
-output: .ipython
-output: .kde
-output: .lesshst
-output: libinput.txt
-output: LinuxDownloads
-output: .local
-output: .lyx
-output: .macromedia
-output: mail
-output: .mlterm
-output: .mono
-output: mount.crmda.archive
-output: mount.crmda.pauljohn
-output: mount.crmda.procedures
-output: mount.crmda.projects
-output: mount.crmda.users
-output: mount.crmda.workgroups
-output: .mozilla
-output: Music
-output: .nano
-output: .nv
-output: nvidiafix.sh
-output: nvidia-pipeline.sh
-output: .nvidia-settings-rc
-output: .nx
-output: .permissions
-output: Pictures
-output: PJ_Health_Open_Enrollment-20161029.pdf
-output: .pki
-output: png1024x768.png
-output: pps.R
-output: .profile
-output: ps
-output: Public
-output: .purple
-output: .putty
-output: .qt
-output: R
-output: random.R
-output: random.R~
-output: .recently-used
-output: Reich-Quantile_Regression_Bayesian-Biostat-2010-337-52.pdf
-output: .remmina
-output: Research
 output: .Rhistory
-output: Rplots1.pdf
-output: Rplots2.pdf
-output: Rplots3.pdf
-output: Rplots.pdf
-output: .rstudio-desktop
-output: sasuser.v94
-output: .screenlayout
-output: .selected_editor
-output: signatures
-output: SparkleShare
-output: .ssh
-output: ssh-archive-keys
-output: .stata14
-output: .subversion
-output: .sudo_as_admin_successful
-output: SVN
-output: swapfix.txt
-output: swarm
-output: .swp
-output: tables-slides.lyx
-output: tables-slides.lyx~
-output: Templates
-output: .texlive2016
-output: texmf
-output: .texmf-var
-output: .thumbnails
-output: .thunderbird
-output: tmp
-output: tmpout
-output: Trash
-output: TrueMounted
-output: TurboTax
-output: upgrade-R.txt
-output: .VeraCrypt
-output: Videos
-output: .vim
-output: .viminfo
-output: VM
-output: work
-output: .Xauthority
-output: .xdvirc
-output: xfce4-keyboard-shortcuts.xml
-output: xinput.conf
-output: .xinputrc
-output: xorg.conf
-output: .xournal
-output: .xsel.log
-output: .xsession-errors
-output: .xsession-errors.old</code></pre>
+output: rmd2html.sh
+output: shell-1.html
+output: shell-1.Rmd
+output: shell.html
+output: shell.Rmd
+output: tmpout</code></pre>
 <ul>
 <li>The -l argument asks for more comprehensive information</li>
 </ul>
 <pre class="bash"><code>$ ls -l</code></pre>
-<pre><code>output: total 1452
+<pre><code>output: total 1476
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 739255 Nov 11 09:41 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  11218 Nov 11 09:42 shell-1.Rmd
-output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 08:38 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 <ul>
 <li>Often I put the two together</li>
 </ul>
 <pre class="bash"><code>$ ls -la</code></pre>
-<pre><code>output: total 1464
-output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 09:42 .
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 08:42 ..
+<pre><code>output: total 1488
+output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 18:31 .
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ..
 output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 739255 Nov 11 09:41 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  11218 Nov 11 09:42 shell-1.Rmd
-output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 08:38 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 <ul>
@@ -632,23 +485,394 @@ output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 </div>
 <div id="change-the-working-directory" class="section level1">
 <h1>Change the working directory</h1>
+<div id="cd-change-directory" class="section level4">
+<h4>cd: change directory</h4>
 <ul>
-<li>We already saw that <code>cd</code> returns user to $HOME</li>
+<li>We already saw that <code>cd</code> (without arguments) returns user to $HOME</li>
+<li>More generally <code>cd</code> can change the specified working directory</li>
 </ul>
-<div id="danger-elements-to-fix" class="section level4 bs-callout bs-callout-danger">
-<h4>Danger: Elements to fix</h4>
-<ol style="list-style-type: decimal">
-<li><p>topical tags, first of which is “guide”</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>we need a list of legal tags</p></li>
-<li><p>way to enforce the tags</p></li>
-<li><p>way to make them available better than making them a co-author</p></li>
-</ol></li>
-<li><p>Wish header had comment like (“this document was retrieved from CRMDA”) without making it a coauthor</p></li>
-</ol>
 </div>
-<div id="note-policies-about-writing-in-these-documents." class="section level4 bs-callout bs-callout-warning">
-<h4>Note: Policies about writing in these documents.</h4>
+<div id="cd-examples-everybody-should-try." class="section level3">
+<h3><code>cd</code> examples everybody should try.</h3>
+<ul>
+<li>First, run <code>ls -F</code> to find a directory name (thing with slash on end), e.g. <code>Desktop</code>, then</li>
+</ul>
+<pre class="bash"><code>$ cd Desktop
+$ pwd
+$ ls -F</code></pre>
+<p><strong>cd</strong>: change the working directory</p>
+<ul>
+<li><p>If <code>ls</code> shows there is another directory, then <code>cd</code> into it. Run <code>ls</code> again</p></li>
+<li><p>Run <code>cd</code> to go back to HOME.</p></li>
+<li>Now please verify the following.
+<ol style="list-style-type: decimal">
+<li>TAB completion works. If you type <code>cd Des</code> and stop typing, and then hit TAB, does it auto-complete the word Desktop?</li>
+<li>Continue with autocompletion. When “Desktop” is filled in, hit TAB a couple of times. It will show nothing if there are no directories within Desktop, but if there are, it will show them on the screen.</li>
+<li>Type the first few letters of a directory name, hit TAB again.</li>
+</ol></li>
+<li><p>After all of that TABing, you shoud have a prompt that looks like this</p></li>
+</ul>
+<pre class="bash"><code>$ cd Desktop/whatever_subdir</code></pre>
+<pre><code>  * hit enter, then run `pwd` to make sure you are in there
+  * perhaps the prompt changed to let you know, without running pwd</code></pre>
+<ul>
+<li>Oops, you went one too far! Go back</li>
+</ul>
+<pre class="bash"><code>$ cd ..</code></pre>
+<ul>
+<li>Benefits of TAB completion. <em>Too numerous to write out in their entirety</em> :)</li>
+</ul>
+</div>
+</div>
+<div id="make-a-directory" class="section level1">
+<h1>Make a directory</h1>
+<div id="this-will-change-something-in-your-computer-so-pay-attention" class="section level4 bs-callout bs-callout-danger">
+<h4>This will change something in your computer, so pay attention</h4>
+<ul>
+<li>Change to a directory where you would put your work for today.</li>
+<li>Most people choose (e.g., Desktop or Documents)</li>
+</ul>
+<pre class="bash"><code>$ cd Desktop</code></pre>
+<ul>
+<li>Make a new directory</li>
+</ul>
+<pre class="bash"><code>$ mkdir sc-20161115</code></pre>
+<p><strong>mkdir</strong>: make a new directory</p>
+<ul>
+<li>Make sure it is there with <code>ls</code></li>
+<li><p>Change into that directory, (don’t forget TAB completion)!</p></li>
+<li><p>recursive (nested) directories</p>
+<ul>
+<li><p>By default, <code>mkdir</code> is willing to create only one new “layer”.</p></li>
+<li><code>mkdir Desktop/sc-20161115/topdir/middir/lowerdir</code> will be rejected.</li>
+<li><p>To create a hierarchy of directories in one command, add the <code>-p</code> flag</p></li>
+</ul></li>
+</ul>
+<pre class="bash"><code>$ mkdir -p Desktop/sc-20161115/topdir/middir/lowerdir</code></pre>
+</div>
+<div id="quick-summary-2" class="section level2">
+<h2>Quick Summary</h2>
+<ul>
+<li><p>mkdir: creates a directory. Only adds “one level deeper”</p></li>
+<li><p>mkdir -p: create recursively</p></li>
+</ul>
+</div>
+</div>
+<div id="worlds-collide" class="section level1">
+<h1>Worlds Collide</h1>
+<ul>
+<li><p>Lets figure out how to see your new directory Desktop/sc-20161115 in your “Modern Graphical Operating System”.</p></li>
+<li><p>Launch a file manager in the usual way (Windows Explorer, Mac Finder, Linux Nautilus, etc)</p>
+<pre><code>* Navigate to Desktop/sc-20161115</code></pre></li>
+<li><p>Terminal programs can launch those file managers</p></li>
+<li><p>Git BASH for Windows includes a shortcut command. Type</p></li>
+</ul>
+<pre class="bash"><code>$ explorer .</code></pre>
+<ul>
+<li>Terminal on Macintosh can launch a File Finder:</li>
+</ul>
+<pre class="bash"><code>$ open .</code></pre>
+<pre><code>* In both of these, &quot;.&quot; means &quot;Current Working Directory&quot;</code></pre>
+<div id="please-do-some-practices" class="section level2">
+<h2>Please do some practices</h2>
+<ul>
+<li>Make a disposable directory.</li>
+</ul>
+<pre class="bash"><code>$ cd
+$ mkdir -p Desktop/mistake</code></pre>
+<ul>
+<li><p>Check to see if the directory mistake is visible</p>
+<ul>
+<li><p>inside the Terminal</p></li>
+<li><p>in the graphical file manager program</p></li>
+</ul></li>
+<li><p>Use the graphical file manager to create a directory inside <code>mistake</code>.</p></li>
+<li><p>Make sure you can see that from inside the terminal</p></li>
+<li><p>Then create an empty file this way</p></li>
+</ul>
+<pre class="bash"><code>$ cd Desktop/mistake
+$ touch great_file.txt</code></pre>
+<p><strong>touch</strong>: sets current time on a file. If no file exists, create emtpty file with that date.</p>
+<ul>
+<li><p>Run <code>ls -la</code> to make sure the file is there</p></li>
+<li><p>Use the graphical file manager program to see if “great_file.txt” exists.</p></li>
+<li><p>Does right-click “edit with” give you any candidate editors? We need a text editor. Not a Word Processor (Word, Libre Office), but rather a “flat text” editor. Save the file.</p></li>
+<li><p>Back in the terminal, lets inspect what happened.</p></li>
+</ul>
+<pre class="bash"><code>$ ls -la
+$ cat great_file.txt</code></pre>
+<p><strong>cat</strong>: opens file and displays it from top to bottom</p>
+<ul>
+<li><p>There are editors that work well “in the terminal”, but using them is a lost art, except among programmers and truly devoted terminal-loving data scientists. My Mom could do this in 1985, you could too.</p>
+<ul>
+<li><p>nano is available on most Mac and Linux systems, and it <em>might</em> be available in a Windows BASH shell program.</p></li>
+<li><p>vi is an old old fast fast flat text editor I can demonstrate.</p>
+<ul>
+<li><p>It will be launched often by programs like Git, so one must get some tolerance for it.</p></li>
+<li><p>The get out of jail keystrokes: <code>Esc : wq</code> (Yes, Escape, followed by a colon. If you watch the very bottom of the terminal, you get a hint it is accepting commands. Then type <code>w</code> and <code>q</code> (to “write” and “quit”)</p></li>
+</ul></li>
+<li><p>I’m an Emacs enthusiast, but NOT in the terminal. That’s too severe without menus.</p>
+<ul>
+<li>The get-out-of-jail key sequence is <code>Ctl-x Ctl-c</code> to close it down.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="quick-summary-3" class="section level2">
+<h2>Quick Summary</h2>
+<ul>
+<li><p>A part of the hard disk file storage can be thought of as ‘shared’ content between 2 separate systems.</p></li>
+<li><p>Shell commands like “mkdir” and “cd” have obvious equivalents in the GUI File Manager</p></li>
+<li><p>A benefit of the Terminal/Shell is that problems too big, which would overwhelm the GUI, can still be done.</p></li>
+</ul>
+</div>
+</div>
+<div id="delete-directories-and-files" class="section level1">
+<h1>Delete directories and files</h1>
+<div id="terminal-defaults-no-safety-net" class="section level4 bs-callout bs-callout-danger">
+<h4>Terminal Defaults: no “safety net”</h4>
+<ul>
+<li><p>There’s no “Trash Can” built into the shell</p></li>
+<li><p>Default setup will not ask “do you really mean to delete that?” It will just do it.</p></li>
+<li><p>There is a “safe delete” flag, <code>-i</code></p>
+<ul>
+<li><p>If that is included in usage of all file mover/destroyer functions, system will not follow your orders right away.</p></li>
+<li><p>When I go to a new computer account, the first thing I do is insert a shell configuration that inserts <code>-i</code> with all usages of <code>rm</code>, <code>cp</code> and <code>mv</code>. (keywords: <code>alias</code> and <code>profile</code>).</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="rm-deletes-things" class="section level3">
+<h3><code>rm</code> deletes things</h3>
+<ul>
+<li><p><code>cd</code> into directory that has the trash file we were fiddling with “great_file.txt”</p></li>
+<li><p>Delete that file</p></li>
+</ul>
+<pre class="bash"><code>$ rm great_file.txt</code></pre>
+<ul>
+<li>If there is no message, that means it worked!
+<ul>
+<li>Check in the terminal with <code>ls</code></li>
+<li>Check in the GUI file manager</li>
+</ul></li>
+</ul>
+</div>
+<div id="delete-a-directory-that-is-not-empty" class="section level3">
+<h3>Delete a directory that is not empty</h3>
+<pre><code>* rm will refuse a request to delete a non-empty directory
+
+  * Error message will be something like</code></pre>
+<pre><code>    rm: cannot remove 'mistake': Is a directory</code></pre>
+<pre><code>* Flags &quot;-r&quot; and &quot;-f&quot; override that resistance
+
+   * &quot;**-r**&quot;: recursive
+   * &quot;**-f**&quot;: force (don't bother me with warnings)
+
+* If the mistake directory is still there, get rid of it</code></pre>
+<pre class="bash"><code>$ cd
+$ cd Desktop
+$ ls mistake
+$ rm -rf mistake</code></pre>
+</div>
+<div id="a-safer-workflow-might-use-move-commands-which-we-will-see" class="section level3">
+<h3>A Safer Workflow might Use move commands, which we will see</h3>
+<pre><code>next.
+ 
+   </code></pre>
+</div>
+<div id="quick-summary-4" class="section level2">
+<h2>Quick Summary</h2>
+<ul>
+<li>rm: can remove a file, or several files.</li>
+<li>rm -rf: remove a folder and everything in it<br />
+</li>
+<li>The default setup has no warning or “do you really want to do this?”</li>
+</ul>
+</div>
+</div>
+<div id="move-and-rename-same-thing" class="section level1">
+<h1>Move and Rename: same thing!</h1>
+<div id="mv-is-multi-talented" class="section level4 bs-callout bs-callout-info">
+<h4>mv is multi-talented</h4>
+<ul>
+<li><p>General syntax <code>mv x y</code></p>
+<ul>
+<li><p>x is the source</p></li>
+<li><p>y is the target</p></li>
+</ul></li>
+<li><p>If x is a directory, and</p>
+<ul>
+<li>y does not exist, then x is renamed as y</li>
+</ul></li>
+<li><p>If y is a directory name that already exists, x is moved inside y.</p></li>
+<li>Re-create the mistake directory.
+<ul>
+<li>Use cd to reposition yourself</li>
+</ul></li>
+</ul>
+<pre class="bash"><code>$ mkdir mistake</code></pre>
+<pre><code>   * Spawn a few empty files in there</code></pre>
+<pre class="bash"><code>$ touch mistake/myfile1.txt
+$ touch mistake/myfile2.txt
+$ ls -la mistake</code></pre>
+<pre><code>output: total 8
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 18:39 .
+output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 18:39 ..
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile2.txt</code></pre>
+<pre class="bash"><code>$ ls -laF</code></pre>
+<pre><code>output: total 1492
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 mistake/
+output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
+output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
+</div>
+<div id="move-a-directory-rename-that-directory" class="section level3">
+<h3>Move a directory = rename that directory</h3>
+<pre class="bash"><code>$ ls -laF</code></pre>
+<pre><code>output: total 1492
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 mistake/
+output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
+output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
+<pre class="bash"><code>$ mv mistake success</code></pre>
+<pre class="bash"><code>$ ls -laF</code></pre>
+<pre><code>output: total 1492
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
+output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 success/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
+<p>Check that the files are still in there</p>
+<pre class="bash"><code>$ ls -laF success</code></pre>
+<pre><code>output: total 8
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 18:39 ./
+output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 18:39 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile2.txt</code></pre>
+</div>
+<div id="move-a-directory-relocate-whole-directory-and-all-contents-within" class="section level3">
+<h3>Move a directory = relocate whole directory (and all contents within)</h3>
+<ul>
+<li><p>In previous example, the target directory “success” did not exist, so Shell understood what we needed.</p></li>
+<li><p>If target directory did exist, then whole “mistake” directory would be moved into it.</p></li>
+</ul>
+<pre class="bash"><code>$ mkdir wonderful
+$ ls -F</code></pre>
+<pre><code>output: rmd2html.sh*
+output: shell-1.html
+output: shell-1.Rmd
+output: shell.html
+output: shell.Rmd
+output: success/
+output: tmpout/
+output: wonderful/</code></pre>
+<pre class="bash"><code>$ mv success wonderful</code></pre>
+<pre class="bash"><code>$ ls -F wonderful</code></pre>
+<pre><code>output: success/</code></pre>
+</div>
+<div id="move-a-directory-up-to-home-directory" class="section level3">
+<h3>Move a directory “Up” to $HOME directory</h3>
+<pre class="bash"><code>$ cd wonderful
+$ mv success ~/</code></pre>
+<p>“<strong>~</strong>”: shorthand for $HOME</p>
+</div>
+<div id="go-back-one-level-and-retrieve-that-directory-in-there" class="section level3">
+<h3>Go back one level and retrieve that directory in there</h3>
+<pre class="bash"><code>$ cd ..
+$ pwd
+$ ## mv ~/success  .</code></pre>
+<pre><code>output: /home/pauljohn/GIT/github/sc_shell</code></pre>
+<p>“<strong>.</strong>”: is shorthand for here!, the current working directory</p>
+</div>
+<div id="poor-persons-trash-folder" class="section level2">
+<h2>Poor Person’s Trash Folder</h2>
+<ul>
+<li>My aim is to create a Trash directory in my home account.</li>
+</ul>
+<pre class="bash"><code>$ if [ ! -d ~/Trash ] 
+$ then 
+$    mkdir ~/Trash
+$ fi</code></pre>
+<ul>
+<li>apologize for the if/then magic, will explain in shell-2.</li>
+</ul>
+<p>Instead of running <code>rm</code> on unwanted things, consider</p>
+<pre class="bash"><code>$ mv wonderful ~/Trash </code></pre>
+<pre class="bash"><code>$ ls -laF ~/Trash</code></pre>
+<pre><code>output: total 16
+output: drwxrwxr-x  4 pauljohn pauljohn 4096 Nov 11 18:39 ./
+output: drwxr-xr-x 82 pauljohn pauljohn 4096 Nov 11 18:39 ../
+output: drwxr-xr-x  5 pauljohn pauljohn 4096 Jul  9 22:17 VBox/
+output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 18:39 wonderful/</code></pre>
+</div>
+<div id="quick-summary-5" class="section level2">
+<h2>Quick Summary</h2>
+<ul>
+<li><p><code>mv x y</code> will rename a file x as y if y does not exist</p></li>
+<li><p><code>mv x y</code> will move x into y if y is a directory</p></li>
+<li><p><code>mv x y</code> will obliterate y if y is a file</p></li>
+<li><p><code>y</code> can be a relative or absolute path</p></li>
+</ul>
+</div>
+</div>
+<div id="cp-is-for-copy-suprisingly-different-from-move" class="section level1">
+<h1><code>cp</code> is for Copy: suprisingly different from move</h1>
+<div id="syntax-looks-similar-where-files-are-concerned" class="section level3">
+<h3>Syntax looks similar where files are concerned</h3>
+<ul>
+<li><code>cp x y</code> # copies file <code>x</code> to file name <code>y</code></li>
+<li><code>cp -R x y</code> # copies <em>recursively</em> directory x to y</li>
+<li><p>recall I always have <code>-i</code> on uses of rm, cp, and mv</p></li>
+<li><p>Like mv, if y is a directory that exists, then x is moved within it.</p></li>
+<li>Biggest difference from <code>mv</code> is that <code>cp</code> will do nothing to copy a directory if you forget the -R.
+<ul>
+<li>Error is like this <code>$  cp success ~/Trash cp: omitting directory 'success'</code></li>
+</ul></li>
+</ul>
+<p># Big summary. We have reviewed</p>
+</div>
+<div id="the-important-creature-comforts-of-a-terminal" class="section level3">
+<h3>The important creature comforts of a terminal</h3>
+<ul>
+<li>TAB completion</li>
+<li>History (up arrow or “history” command)</li>
+<li>Syntax highlighting</li>
+</ul>
+</div>
+<div id="key-concepts" class="section level3">
+<h3>Key concepts</h3>
+<ul>
+<li>HOME folder, known as ~</li>
+<li>Absolute path begins with /, the root directory</li>
+<li>Relative path begins with
+<ul>
+<li>directory name in current directory if “going downwards”</li>
+<li>“../” if “going up” before possibly going downward again</li>
+</ul></li>
+</ul>
+<p>### We have reviewed the most essential commands needed to navigate in a Terminal/Shell</p>
+<p><code>pwd</code> print working directory <code>ls</code> list files <code>cd</code> change directory <code>mkdir</code> create a directory <code>rm</code>, <code>mv</code>, <code>cp</code>: remove, move and copy directories and files</p>
+</div>
+<div id="and-some-less-vital-but-useful-commands" class="section level3">
+<h3>And some less vital, but useful commands</h3>
+<p><code>echo $XYZ</code> prints out the contents of an environment variable <code>XYZ</code> <code>cat xyz</code> prints out the contents of a file named <code>xyz</code> <code>env</code> prints out the entire contents of the environment</p>
 </div>
 </div>
 
