@@ -386,10 +386,10 @@ output: tmpout</code></pre>
 <li>The -l argument asks for more comprehensive information</li>
 </ul>
 <pre class="bash"><code>$ ls -l</code></pre>
-<pre><code>output: total 1476
+<pre><code>output: total 1480
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
@@ -397,13 +397,13 @@ output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 <li>Often I put the two together</li>
 </ul>
 <pre class="bash"><code>$ ls -la</code></pre>
-<pre><code>output: total 1488
-output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 18:31 .
+<pre><code>output: total 1492
+output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 19:11 .
 output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ..
 output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
@@ -715,19 +715,19 @@ $ rm -rf mistake</code></pre>
 $ touch mistake/myfile2.txt
 $ ls -la mistake</code></pre>
 <pre><code>output: total 8
-output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 18:39 .
-output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 18:39 ..
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile1.txt
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile2.txt</code></pre>
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 .
+output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ..
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile2.txt</code></pre>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1492
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+<pre><code>output: total 1496
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
 output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 mistake/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 mistake/
 output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
@@ -735,37 +735,37 @@ output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 <div id="move-a-directory-rename-that-directory" class="section level3">
 <h3>Move a directory = rename that directory</h3>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1492
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+<pre><code>output: total 1496
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
 output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 mistake/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 mistake/
 output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 <pre class="bash"><code>$ mv mistake success</code></pre>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1492
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 18:39 ./
+<pre><code>output: total 1496
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
 output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
 output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 753479 Nov 11 18:31 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21498 Nov 11 18:38 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 18:39 success/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 success/
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 <p>Check that the files are still in there</p>
 <pre class="bash"><code>$ ls -laF success</code></pre>
 <pre><code>output: total 8
-output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 18:39 ./
-output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 18:39 ../
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile1.txt
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile2.txt</code></pre>
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 ./
+output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile2.txt</code></pre>
 </div>
 <div id="move-a-directory-relocate-whole-directory-and-all-contents-within" class="section level3">
 <h3>Move a directory = relocate whole directory (and all contents within)</h3>
@@ -774,7 +774,9 @@ output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 18:39 myfile2.txt</code></pre
 <li><p>If target directory did exist, then whole “mistake” directory would be moved into it.</p></li>
 </ul>
 <pre class="bash"><code>$ mkdir wonderful
-$ ls -F</code></pre>
+$ ls -F
+$ # Move success into wonderful:
+$ mv success wonderful</code></pre>
 <pre><code>output: rmd2html.sh*
 output: shell-1.html
 output: shell-1.Rmd
@@ -783,23 +785,49 @@ output: shell.Rmd
 output: success/
 output: tmpout/
 output: wonderful/</code></pre>
-<pre class="bash"><code>$ mv success wonderful</code></pre>
-<pre class="bash"><code>$ ls -F wonderful</code></pre>
-<pre><code>output: success/</code></pre>
+<pre class="bash"><code>$ ls -laF</code></pre>
+<pre><code>output: total 1496
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/
+output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 19:11 wonderful/</code></pre>
+<pre class="bash"><code>$ ls -laF wonderful</code></pre>
+<pre><code>output: total 12
+output: drwxrwxr-x 3 pauljohn pauljohn 4096 Nov 11 19:11 ./
+output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ../
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 success/</code></pre>
 </div>
 <div id="move-a-directory-up-to-home-directory" class="section level3">
 <h3>Move a directory “Up” to $HOME directory</h3>
 <pre class="bash"><code>$ cd wonderful
-$ mv success ~/</code></pre>
-<p>“<strong>~</strong>”: shorthand for $HOME</p>
+$ mv success ~/
+$ cd ..</code></pre>
+<p>Recall, “<strong>~</strong>”: Tilde is shorthand for $HOME</p>
 </div>
-<div id="go-back-one-level-and-retrieve-that-directory-in-there" class="section level3">
-<h3>Go back one level and retrieve that directory in there</h3>
-<pre class="bash"><code>$ cd ..
-$ pwd
-$ ## mv ~/success  .</code></pre>
-<pre><code>output: /home/pauljohn/GIT/github/sc_shell</code></pre>
-<p>“<strong>.</strong>”: is shorthand for here!, the current working directory</p>
+<div id="go-back-one-level-and-retrieve-that-directory.-it-should-end-up-back" class="section level3">
+<h3>Go back one level and retrieve that directory. It should end up back</h3>
+<p>where we started.</p>
+<pre class="bash"><code>$ mv ~/success  .
+$ ls -laF</code></pre>
+<pre><code>output: total 1500
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 19:11 ./
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
+output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
+output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 success/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 wonderful/</code></pre>
+<p>“<strong>.</strong>”: Period is shorthand for here!, the current working directory</p>
 </div>
 <div id="poor-persons-trash-folder" class="section level2">
 <h2>Poor Person’s Trash Folder</h2>
@@ -817,10 +845,10 @@ $ fi</code></pre>
 <pre class="bash"><code>$ mv wonderful ~/Trash </code></pre>
 <pre class="bash"><code>$ ls -laF ~/Trash</code></pre>
 <pre><code>output: total 16
-output: drwxrwxr-x  4 pauljohn pauljohn 4096 Nov 11 18:39 ./
-output: drwxr-xr-x 82 pauljohn pauljohn 4096 Nov 11 18:39 ../
+output: drwxrwxr-x  4 pauljohn pauljohn 4096 Nov 11 19:11 ./
+output: drwxr-xr-x 81 pauljohn pauljohn 4096 Nov 11 19:11 ../
 output: drwxr-xr-x  5 pauljohn pauljohn 4096 Jul  9 22:17 VBox/
-output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 18:39 wonderful/</code></pre>
+output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 19:11 wonderful/</code></pre>
 </div>
 <div id="quick-summary-5" class="section level2">
 <h2>Quick Summary</h2>
@@ -832,8 +860,8 @@ output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 18:39 wonderful/</code></pre
 </ul>
 </div>
 </div>
-<div id="cp-is-for-copy-suprisingly-different-from-move" class="section level1">
-<h1><code>cp</code> is for Copy: suprisingly different from move</h1>
+<div id="cp-is-for-copy-enough-different-from-mv-to-be-frustrating" class="section level1">
+<h1><code>cp</code> is for Copy: enough different from <code>mv</code> to be frustrating</h1>
 <div id="syntax-looks-similar-where-files-are-concerned" class="section level3">
 <h3>Syntax looks similar where files are concerned</h3>
 <ul>
@@ -867,12 +895,31 @@ output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 18:39 wonderful/</code></pre
 <li>“../” if “going up” before possibly going downward again</li>
 </ul></li>
 </ul>
-<p>### We have reviewed the most essential commands needed to navigate in a Terminal/Shell</p>
-<p><code>pwd</code> print working directory <code>ls</code> list files <code>cd</code> change directory <code>mkdir</code> create a directory <code>rm</code>, <code>mv</code>, <code>cp</code>: remove, move and copy directories and files</p>
+</div>
+<div id="we-have-reviewed-the-most-essential-commands-needed-to-navigate-in-a-terminalshell" class="section level3">
+<h3>We have reviewed the most essential commands needed to navigate in a Terminal/Shell</h3>
+<ul>
+<li><code>pwd</code> print working directory</li>
+<li><code>ls</code> list files</li>
+<li><code>cd</code> change directory</li>
+<li><code>mkdir</code> create a directory</li>
+</ul>
+</div>
+<div id="and-to-remove-and-relocate-files-and-directories" class="section level3">
+<h3>And to remove and relocate files and directories</h3>
+<ul>
+<li><code>rm</code> remove (delete)</li>
+<li><code>mv</code> move / rename</li>
+<li><code>cp</code>: copy directories and files</li>
+</ul>
 </div>
 <div id="and-some-less-vital-but-useful-commands" class="section level3">
 <h3>And some less vital, but useful commands</h3>
-<p><code>echo $XYZ</code> prints out the contents of an environment variable <code>XYZ</code> <code>cat xyz</code> prints out the contents of a file named <code>xyz</code> <code>env</code> prints out the entire contents of the environment</p>
+<ul>
+<li><code>echo $XYZ</code> prints out the contents of an environment variable <code>XYZ</code></li>
+<li><code>cat xyz</code> prints out the contents of a file named <code>xyz</code></li>
+<li><code>env</code> prints out the entire contents of the environment</li>
+</ul>
 </div>
 </div>
 

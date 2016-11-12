@@ -654,14 +654,16 @@ ls -laF success
 ```{r}
 mkdir wonderful
 ls -F
-```    
-
-```{r}
+# Move success into wonderful:
 mv success wonderful
 ```
 
 ```{r}
-ls -F wonderful
+ls -laF
+```
+
+```{r}
+ls -laF wonderful
 ```
 
 ### Move a directory "Up" to $HOME directory
@@ -669,17 +671,20 @@ ls -F wonderful
 ```{r}
 cd wonderful
 mv success ~/
-```
-"**~**": shorthand for $HOME
-
-### Go back one level and retrieve that directory in there
-```{r}
 cd ..
-pwd
-## mv ~/success  .
 ```
 
-"**.**": is shorthand for here!, the current working directory
+Recall, "**~**": Tilde is shorthand for $HOME
+
+### Go back one level and retrieve that directory. It should end up back
+where we started.
+
+```{r}
+mv ~/success  .
+ls -laF
+```
+
+"**.**": Period is shorthand for here!, the current working directory
 
 ## Poor Person's Trash Folder
 
@@ -717,7 +722,7 @@ ls -laF ~/Trash
 
 
 
-# `cp` is for Copy: suprisingly different from move
+# `cp` is for Copy: enough different from `mv` to be frustrating
 
 ### Syntax looks similar where files are concerned
 
@@ -751,17 +756,21 @@ cp: omitting directory 'success'
       * directory name in current directory if "going downwards"
       * "../" if "going up" before possibly going downward again    
 
- ### We have reviewed the most essential commands needed to navigate in a Terminal/Shell
+### We have reviewed the most essential commands needed to navigate in a Terminal/Shell
 
-`pwd` print working directory
-`ls` list files
-`cd` change directory
-`mkdir` create a directory
-`rm`, `mv`, `cp`: remove, move and copy directories and files
+   * `pwd` print working directory
+   * `ls` list files
+   * `cd` change directory
+   * `mkdir` create a directory
+
+### And to remove and relocate files and directories   
+   * `rm`  remove (delete)
+   * `mv`  move / rename
+   * `cp`: copy directories and files
 
 ### And some less vital, but useful commands
 
-`echo $XYZ` prints out the contents of an environment variable `XYZ`
-`cat xyz` prints out the contents of a file named `xyz`
-`env` prints out the entire contents of the environment
+   * `echo $XYZ` prints out the contents of an environment variable `XYZ`
+   * `cat xyz` prints out the contents of a file named `xyz`
+   * `env` prints out the entire contents of the environment
 
