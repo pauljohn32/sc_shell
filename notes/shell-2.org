@@ -1,0 +1,1080 @@
+#+Title: Shell-2: Run Programs, Interact with their Output
+#+Author: Paul E. Johnson <pauljohn@ku.edu>
+#+Date: <2016-11-13>
+#+PROPERTY: header-args :tangle yes :exports both :results output 
+
+
+
+* Get the SWC files
+
+** We use git as a file retriever.
+
+git is the name of a "command line" program. 
+Git's project management concepts will be discussed elsewhere.
+
+
+#+BEGIN_SRC sh: results output :exports both
+cd
+cd GIT/github
+git clone https://github.com/oulib-swc/ou_swc_files.git
+cd ou_swc_files
+#+END_SRC
+
+#+RESULTS:
+
+** *ls*: Inspect those files
+
+1. list the items in the top level directory (ls)
+
+- lists items
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+ls
+#+END_SRC
+
+- I need "-F" because color coding is lost in this output
+
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+ls -F
+#+END_SRC
+
+- show hidden items
+
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+ls -Fa
+#+END_SRC
+
+- show detailed information
+
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+ls -Fla
+#+END_SRC
+
+#+RESULTS:
+: total 24
+: drwxrwxr-x 6 pauljohn pauljohn 4096 Nov 13 10:49 .
+: drwxrwxr-x 9 pauljohn pauljohn 4096 Nov 13 10:49 ..
+: drwxrwxr-x 3 pauljohn pauljohn 4096 Nov 13 10:49 gapminder
+: drwxrwxr-x 8 pauljohn pauljohn 4096 Nov 13 10:49 .git
+: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 13 10:49 inflammation
+: drwxrwxr-x 5 pauljohn pauljohn 4096 Nov 13 10:49 Users
+
+- List contents, including one level below
+
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+ls -F *
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+gapminder:
+data/
+
+inflammation:
+data/
+python/
+
+Users:
+imhotep/
+larry/
+nelle/
+#+end_example
+
+- List files recursively with -R 
+
+#+BEGIN_SRC sh  :dir /home/pauljohn/GIT/github/ou_swc_files :session
+  ls -FR 
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+.:
+gapminder/
+inflammation/
+Users/
+
+./gapminder:
+data/
+
+./gapminder/data:
+gapminder_all.csv
+gapminder_gdp_africa.csv
+gapminder_gdp_americas.csv
+gapminder_gdp_asia.csv
+gapminder_gdp_europe.csv
+gapminder_gdp_oceania.csv
+
+./inflammation:
+data/
+python/
+
+./inflammation/data:
+inflammation-01.csv
+inflammation-02.csv
+inflammation-03.csv
+inflammation-04.csv
+inflammation-05.csv
+inflammation-06.csv
+inflammation-07.csv
+inflammation-08.csv
+inflammation-09.csv
+inflammation-10.csv
+inflammation-11.csv
+inflammation-12.csv
+small-01.csv
+small-02.csv
+small-03.csv
+
+./inflammation/python:
+argv-list.py
+arith.py
+check.py
+count-stdin.py
+errors_01.py
+errors_02.py
+gen-inflammation.py
+line-count.py
+my_ls.py
+readings-01.py
+readings-02.py
+readings-03.py
+readings-04.py
+readings-05.py
+readings-06.py
+readings-07.py
+readings-08.py
+readings-09.py
+rectangle.py
+sys-version.py
+
+./Users:
+imhotep/
+larry/
+nelle/
+
+./Users/imhotep:
+
+./Users/larry:
+
+./Users/nelle:
+creatures/
+data/
+Desktop/
+molecules/
+north-pacific-gyre/
+notes.txt
+pizza.cfg
+solar.pdf
+writing/
+
+./Users/nelle/creatures:
+basilisk.dat
+unicorn.dat
+
+./Users/nelle/data:
+amino-acids.txt
+animals.txt
+elements/
+morse.txt
+pdb/
+planets.txt
+salmon.txt
+sunspot.txt
+
+./Users/nelle/data/elements:
+Ac.xml
+Ag.xml
+Al.xml
+Am.xml
+Ar.xml
+As.xml
+At.xml
+Au.xml
+Ba.xml
+Be.xml
+Bi.xml
+Bk.xml
+Br.xml
+B.xml
+Ca.xml
+Cd.xml
+Ce.xml
+Cf.xml
+Cl.xml
+Cm.xml
+Co.xml
+Cr.xml
+Cs.xml
+Cu.xml
+C.xml
+Dy.xml
+Er.xml
+Es.xml
+Eu.xml
+Fe.xml
+Fm.xml
+Fr.xml
+F.xml
+Ga.xml
+Gd.xml
+Ge.xml
+He.xml
+Hf.xml
+Hg.xml
+Ho.xml
+H.xml
+In.xml
+Ir.xml
+I.xml
+Kr.xml
+K.xml
+La.xml
+Li.xml
+Lr.xml
+Lu.xml
+Md.xml
+Mg.xml
+Mn.xml
+Mo.xml
+Na.xml
+Nb.xml
+Nd.xml
+Ne.xml
+Ni.xml
+No.xml
+Np.xml
+N.xml
+Os.xml
+O.xml
+Pa.xml
+Pb.xml
+Pd.xml
+Pm.xml
+Po.xml
+Pr.xml
+Pt.xml
+Pu.xml
+P.xml
+Ra.xml
+Rb.xml
+Re.xml
+Rh.xml
+Rn.xml
+Ru.xml
+Sb.xml
+Sc.xml
+Se.xml
+Si.xml
+Sm.xml
+Sn.xml
+Sr.xml
+S.xml
+Ta.xml
+Tb.xml
+Tc.xml
+Te.xml
+Th.xml
+Ti.xml
+Tl.xml
+Tm.xml
+U.xml
+V.xml
+W.xml
+Xe.xml
+Yb.xml
+Y.xml
+Zn.xml
+Zr.xml
+
+./Users/nelle/data/pdb:
+aldrin.pdb
+ammonia.pdb
+ascorbic-acid.pdb
+benzaldehyde.pdb
+camphene.pdb
+cholesterol.pdb
+cinnamaldehyde.pdb
+citronellal.pdb
+codeine.pdb
+cubane.pdb
+cyclobutane.pdb
+cyclohexanol.pdb
+cyclopropane.pdb
+ethane.pdb
+ethanol.pdb
+ethylcyclohexane.pdb
+glycol.pdb
+heme.pdb
+lactic-acid.pdb
+lactose.pdb
+lanoxin.pdb
+lsd.pdb
+maltose.pdb
+menthol.pdb
+methane.pdb
+methanol.pdb
+mint.pdb
+morphine.pdb
+mustard.pdb
+nerol.pdb
+norethindrone.pdb
+octane.pdb
+pentane.pdb
+piperine.pdb
+propane.pdb
+pyridoxal.pdb
+quinine.pdb
+strychnine.pdb
+styrene.pdb
+sucrose.pdb
+testosterone.pdb
+thiamine.pdb
+tnt.pdb
+tuberin.pdb
+tyrian-purple.pdb
+vanillin.pdb
+vinyl-chloride.pdb
+vitamin-a.pdb
+
+./Users/nelle/Desktop:
+
+./Users/nelle/molecules:
+cubane.pdb
+ethane.pdb
+methane.pdb
+octane.pdb
+pentane.pdb
+propane.pdb
+
+./Users/nelle/north-pacific-gyre:
+2012-07-03/
+
+./Users/nelle/north-pacific-gyre/2012-07-03:
+goodiff
+goostats
+NENE01729A.txt
+NENE01729B.txt
+NENE01736A.txt
+NENE01751A.txt
+NENE01751B.txt
+NENE01812A.txt
+NENE01843A.txt
+NENE01843B.txt
+NENE01971Z.txt
+NENE01978A.txt
+NENE01978B.txt
+NENE02018B.txt
+NENE02040A.txt
+NENE02040B.txt
+NENE02040Z.txt
+NENE02043A.txt
+NENE02043B.txt
+
+./Users/nelle/writing:
+data/
+haiku.txt
+old/
+thesis/
+tools/
+
+./Users/nelle/writing/data:
+one.txt
+two.txt
+
+./Users/nelle/writing/old:
+
+./Users/nelle/writing/thesis:
+empty-draft.md
+
+./Users/nelle/writing/tools:
+format
+old/
+stats
+
+./Users/nelle/writing/tools/old:
+oldtool
+#+end_example
+
+
+** Use du check disk space used
+
+Default unit of measurement will be value not useful to humans, so add
+"-h" flag to du command
+
+#+BEGIN_SRC sh :dir /home/pauljohn/GIT/github/ou_swc_files 
+du -h
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+84K	./inflammation/python
+112K	./inflammation/data
+200K	./inflammation
+88K	./gapminder/data
+92K	./gapminder
+4.0K	./.git/refs/tags
+8.0K	./.git/refs/remotes/origin
+12K	./.git/refs/remotes
+8.0K	./.git/refs/heads
+28K	./.git/refs
+8.0K	./.git/info
+4.0K	./.git/branches
+44K	./.git/hooks
+8.0K	./.git/logs/refs/remotes/origin
+12K	./.git/logs/refs/remotes
+8.0K	./.git/logs/refs/heads
+24K	./.git/logs/refs
+32K	./.git/logs
+4.0K	./.git/objects/info
+192K	./.git/objects/pack
+200K	./.git/objects
+364K	./.git
+4.0K	./Users/larry
+4.0K	./Users/nelle/Desktop
+212K	./Users/nelle/data/pdb
+416K	./Users/nelle/data/elements
+736K	./Users/nelle/data
+12K	./Users/nelle/creatures
+28K	./Users/nelle/molecules
+144K	./Users/nelle/north-pacific-gyre/2012-07-03
+148K	./Users/nelle/north-pacific-gyre
+4.0K	./Users/nelle/writing/thesis
+4.0K	./Users/nelle/writing/old
+28K	./Users/nelle/writing/data
+4.0K	./Users/nelle/writing/tools/old
+16K	./Users/nelle/writing/tools
+60K	./Users/nelle/writing
+1.1M	./Users/nelle
+4.0K	./Users/imhotep
+1.1M	./Users
+1.7M	.
+#+end_example
+
+*** Want less detail? add "--max-depth" flag
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+du -h --max-depth=1
+#+END_SRC
+
+
+#+RESULTS:
+: 200K	./inflammation
+: 92K	./gapminder
+: 364K	./.git
+: 1.1M	./Users
+: 1.7M	.
+
+
+* Inspect Contents (cat, head, tail)
+
+** The North Pacific Gyre data
+
+*** cd into directory that has some of Nelle's data
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+cd Users/nelle/north-pacific-gyre/2012-07-03
+#+END_SRC
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+ls -la
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+total 148
+drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 13 10:49 .
+drwxrwxr-x 3 pauljohn pauljohn 4096 Nov 13 10:49 ..
+-rw-rw-r-- 1 pauljohn pauljohn  184 Nov 13 10:49 goodiff
+-rw-rw-r-- 1 pauljohn pauljohn  198 Nov 13 10:49 goostats
+-rw-rw-r-- 1 pauljohn pauljohn 4406 Nov 13 10:49 NENE01729A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4400 Nov 13 10:49 NENE01729B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4371 Nov 13 10:49 NENE01736A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4411 Nov 13 10:49 NENE01751A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4409 Nov 13 10:49 NENE01751B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4401 Nov 13 10:49 NENE01812A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4395 Nov 13 10:49 NENE01843A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4375 Nov 13 10:49 NENE01843B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4372 Nov 13 10:49 NENE01971Z.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4381 Nov 13 10:49 NENE01978A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4389 Nov 13 10:49 NENE01978B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 3517 Nov 13 10:49 NENE02018B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4391 Nov 13 10:49 NENE02040A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4367 Nov 13 10:49 NENE02040B.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4381 Nov 13 10:49 NENE02040Z.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4386 Nov 13 10:49 NENE02043A.txt
+-rw-rw-r-- 1 pauljohn pauljohn 4393 Nov 13 10:49 NENE02043B.txt
+#+end_example
+
+
+** cat: "concatenate" files and write on standard output
+
+"cat goodiff" is manageable output
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+cat goodiff
+#+END_SRC
+
+#+RESULTS:
+: # difference of two input files
+: # demo version, just return a random number or "files are identical"
+: if [ "$1" == "$2" ]
+: then
+:     echo "files are identical"
+: else
+:     echo 0.$RANDOM
+: fi
+
+This is a "shell script", a series of commands cobbled together.
+
+** head and tail: checking contents of big files
+
+*** head
+
+If we simply run "cat NENE02040B.txt" to see what's in there,
+everything will run by on  the screen very quickly. One way to deal
+with that is to only look at the top part of the file
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+head NENE02040B.txt
+#+END_SRC
+
+Head defaults to display 10 lines, but perhaps I only need to see the
+first 5.
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+head -n5 NENE02040B.txt
+#+END_SRC
+
+#+RESULTS:
+: 0.616254506154
+: 0.283755587068
+: 0.156990583983
+: 0.404143324251
+: 1.40467049524
+
+Here is an example of the long and short style of command line
+argument. The short argument is "-n" with no equal sign, but the long
+version is
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+head --lines=5 NENE02040B.txt
+#+END_SRC
+
+#+RESULTS:
+: 0.616254506154
+: 0.283755587068
+: 0.156990583983
+: 0.404143324251
+: 1.40467049524
+
+
+
+*** tail: check the last (default: 10) lines
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+tail NENE02040B.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+1.1069459452
+0.073897931368
+0.0755146936238
+0.609976382121
+0.106432564
+0.485084647673
+2.98671436729
+1.13033139062
+0.518031268789
+0.788386986395
+#+end_example
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+tail -n3 NENE02040B.txt
+#+END_SRC
+
+#+RESULTS:
+: 1.13033139062
+: 0.518031268789
+: 0.788386986395
+
+
+** more and less
+
+So far as I can tell, more and less are equivalent!  /more/ is an
+older program over which one company asserted ownership, while /less/
+is the free version created in response. Some systems have one, 
+some systems have both. 
+Need to scan entire file?
+
+Running "cat" will spew out the results too fast.  Some terminals
+are able to scroll back in history, but these are not always
+available.
+
+*** Run the more program to see "one screen at a time".
+
+#+BEGIN_SRC sh :session :results none :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+more NENE02040B.txt
+#+END_SRC
+
+*Space bar* to see next screen
+
+*q* to quit
+
+
+* Why didn't we have to type "/usr/bin/git"?
+
+** Launch a program by name, including all directory structure
+
+#+BEGIN_EXAMPLE
+$ /usr/bin/git
+#+END_EXAMPLE
+
+or 
+
+#+BEGIN_EXAMPLE
+$ /usr/bin/du
+#+END_EXAMPLE
+
+We don't usually have to do that for the most frequently used
+programs in the shell.  
+
+** Enter the *PATH*
+
+*PATH* Special directories where the shell can look
+for executable programs.
+
+Here's my path
+
+#+BEGIN_SRC sh :results output :exports both
+echo $PATH
+#+END_SRC
+
+#+RESULTS:
+: /home/pauljohn/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pauljohn/bin
+
+On many computers, there will be 100s or 1000s of programs
+available. Many are in the executable path. Perhaps not some
+you might expect to be.
+
+My path has the "bin" directory in my user account, plus lots
+of others that come with the OS.
+
+*** Note what Git Bash does
+
+On Git Bash in Windows: the style of the path is different from what
+you might see in Windows description of itself (to see what I mean,
+run the program "cmd" and type "echo %PATH%".)
+
+
+** Text versus GUI programs
+
+- Text based terminal programs "stay in the terminal".
+
+- GUI programs can be "launched" onto desktop 
+
+*** On a Linux/Unix system, simply typing a GUI program's name will
+launch it on the screen.
+
+*** On Macintosh: 
+
+The open function
+
+#+BEGIN_EXAMPLE
+$ open file-name-or-URL
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+$ open -a program-name file-name-or-URL
+#+END_EXAMPLE
+
+If you don't include "-a program-name" then Mac uses the
+default program to open the file-name-or-URL
+
+See: http://brettterpstra.com/2014/08/06/shell-tricks-the-os-x-open-command/
+
+*** Windows 
+
+Git Bash will launch Windows programs that are in the Windows System Path!
+
+2 examples, with and without the special "start" program.
+
+#+BEGIN_EXAMPLE
+$ notepad whatever1.txt
+#+END_EXAMPLE
+
+
+#+BEGIN_EXAMPLE
+$ start notepad whatever2.txt
+#+END_EXAMPLE
+
+Usually I'd just do this. I believe it is preferable to interact with
+projects in this way.
+
+#+BEGIN_EXAMPLE
+$ explorer .
+#+END_EXAMPLE
+
+
+** What about programs that are not on the PATH?
+
+1. We can type out their names in full, beginning with "/"
+
+2. We can use relative file paths (the "./" trick).
+
+3. We add them to the path (either temporarily IN the shell or
+permanently in the OS setup).
+
+*** We are swimming upstream, unfortunately
+
+The trend in Windows and Macintosh has been to NOT put programs
+in the PATH. Both of them have created an alternative model
+where programs are installed and they notify the operating system
+about themselves. These systems have a "desktop" metaphor
+where users can 
+
+1. Launch from Menu
+
+1. Launch from "open with" feature in file manager
+
+** Need to add some directories to the PATH, probably...
+
+Terminal users find it inconvenient when important programs are not in
+the path. For convenience, it is necessary to add program folders to
+the system PATH.
+
+In Windows, when we install *Git*, *Notepad++*, *Emacs*, *R*, and so
+forth, we always say YES if the installer offers to put the programs
+in the path, and if we are not asked, then we do it manually.
+
+
+
+* Programs talk to each other: The Pipe "|"
+
+Many of the traditional Unix functions are build so that the output of
+one function can "go into" another one. Sending "standard output" from
+the first as "standard input" to the follower. Many, not all programs,
+are designed this way.
+
+** Programs I associate with back end of the pipe
+
+- *wc* counts lines or words
+- *sort* sorts output alphabetically
+- *uniq* keeps unique items (sort first)
+- *grep* filters regular expressions 
+
+This is still quite frequently used by text analysts.
+
+** Count lines with *wc* ("word count" counts words too :) ). 
+
+How many lines are there in the file NENE02043B.txt?
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+wc NENE02043B.txt
+#+END_SRC
+
+#+RESULTS:
+:  300  300 4393 NENE02043B.txt
+
+3 results: 
+
+-new lines
+
+-words
+
+-bytecount
+
+
+Usually I just want the number of items, should add "-l" flag.
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+wc -l NENE02043B.txt
+#+END_SRC
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+wc -l N*.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  300 NENE01729A.txt
+  300 NENE01729B.txt
+  300 NENE01736A.txt
+  300 NENE01751A.txt
+  300 NENE01751B.txt
+  300 NENE01812A.txt
+  300 NENE01843A.txt
+  300 NENE01843B.txt
+  300 NENE01971Z.txt
+  300 NENE01978A.txt
+  300 NENE01978B.txt
+  240 NENE02018B.txt
+  300 NENE02040A.txt
+  300 NENE02040B.txt
+  300 NENE02040Z.txt
+  300 NENE02043A.txt
+  300 NENE02043B.txt
+ 5040 total
+#+end_example
+
+Many of these functions are written so they can accept a number
+of files in the command line, there is no need to "loop" over them.
+
+*** Globs 
+
+I used a wildcard "*" in that expression. "*" matches anything, any
+number of characters, in Shell globbing.
+
+"?" matches any single chracter.  Test these:
+
+
+#+BEGIN_EXAMPLE
+$ ls *.txt
+#+END_EXAMPLE
+
+
+#+BEGIN_EXAMPLE
+$ ls *2040*.txt
+#+END_EXAMPLE
+
+
+
+To count the number of files going by, add "| wc"
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+ls | wc
+#+END_SRC
+
+#+RESULTS:
+:      19      19     272
+
+I always forget the "-l" to get just the number of lines.
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+ls | wc -l
+#+END_SRC
+
+#+RESULTS:
+: 19
+
+
+** Pipe to more or less, for example
+
+Any time output goes by too fast, put "| more" on the end.
+
+I do that so often I never run more or less as the primary command
+
+I often find myself tacking on the end of the command line with either
+
+- "cat file1 file2 | more"
+
+- "cat file1 file2 | less"
+
+
+
+
+
+
+* grep is for Filtering
+
+** GNU regular expression parser
+
+It can be used in 2 ways
+
+1. List all lines in a file (or files) that match a target string
+
+   I use that to find out "in which file did I use the word
+   'spectacular'?"
+
+2. Trim down text output by keeping only the lines that have a 
+   magic word I want.
+
+
+*regular expression cheat sheet*
+
+- ^ beginning of a string
+- $ end of a string
+- . any character
+- * quantifier meaning "any number of times", so ".*" matches whole string
+
+To refer to any of these characters literally, we must "escape" them
+with the backslash.
+
+- \^
+- \$
+- \.
+- \*
+
+The flag "-F" allows us to use grep as a text scanner, without worring
+about regular expressions.
+
+1. regular expression: comprehensive scheme to isolate parts of a string.
+
+   ** Which file has the string "1.45"?
+
+   Note, since "." is a magic symbol, I must escape it:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+grep "1\.45" *
+#+END_SRC
+
+#+RESULTS:
+: NENE01736A.txt:1.45925569089
+: NENE01736A.txt:1.45326455695
+: NENE01843A.txt:1.45267098218
+: NENE01843A.txt:1.45220438025
+: NENE01843B.txt:1.45632538433
+: NENE01978B.txt:1.45038474265
+: NENE02043B.txt:1.45917131497
+
+Unless I use the -F flag for fixed text:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+grep -F "1.45" *
+#+END_SRC
+
+#+RESULTS:
+: NENE01736A.txt:1.45925569089
+: NENE01736A.txt:1.45326455695
+: NENE01843A.txt:1.45267098218
+: NENE01843A.txt:1.45220438025
+: NENE01843B.txt:1.45632538433
+: NENE01978B.txt:1.45038474265
+: NENE02043B.txt:1.45917131497
+
+
+
+2. Pipe to grep
+
+A command that causes profuse output--say a huge list of
+files--can be filtered by piping the output to grep.
+
+Suppose we start back at the top level of the ou_swc_files directory
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+ls */*/*
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+gapminder/data/gapminder_all.csv
+gapminder/data/gapminder_gdp_africa.csv
+gapminder/data/gapminder_gdp_americas.csv
+gapminder/data/gapminder_gdp_asia.csv
+gapminder/data/gapminder_gdp_europe.csv
+gapminder/data/gapminder_gdp_oceania.csv
+inflammation/data/inflammation-01.csv
+inflammation/data/inflammation-02.csv
+inflammation/data/inflammation-03.csv
+inflammation/data/inflammation-04.csv
+inflammation/data/inflammation-05.csv
+inflammation/data/inflammation-06.csv
+inflammation/data/inflammation-07.csv
+inflammation/data/inflammation-08.csv
+inflammation/data/inflammation-09.csv
+inflammation/data/inflammation-10.csv
+inflammation/data/inflammation-11.csv
+inflammation/data/inflammation-12.csv
+inflammation/data/small-01.csv
+inflammation/data/small-02.csv
+inflammation/data/small-03.csv
+inflammation/python/argv-list.py
+inflammation/python/arith.py
+inflammation/python/check.py
+inflammation/python/count-stdin.py
+inflammation/python/errors_01.py
+inflammation/python/errors_02.py
+inflammation/python/gen-inflammation.py
+inflammation/python/line-count.py
+inflammation/python/my_ls.py
+inflammation/python/readings-01.py
+inflammation/python/readings-02.py
+inflammation/python/readings-03.py
+inflammation/python/readings-04.py
+inflammation/python/readings-05.py
+inflammation/python/readings-06.py
+inflammation/python/readings-07.py
+inflammation/python/readings-08.py
+inflammation/python/readings-09.py
+inflammation/python/rectangle.py
+inflammation/python/sys-version.py
+Users/nelle/notes.txt
+Users/nelle/pizza.cfg
+Users/nelle/solar.pdf
+
+Users/nelle/creatures:
+basilisk.dat
+unicorn.dat
+
+Users/nelle/data:
+amino-acids.txt
+animals.txt
+elements
+morse.txt
+pdb
+planets.txt
+salmon.txt
+sunspot.txt
+
+Users/nelle/Desktop:
+
+Users/nelle/molecules:
+cubane.pdb
+ethane.pdb
+methane.pdb
+octane.pdb
+pentane.pdb
+propane.pdb
+
+Users/nelle/north-pacific-gyre:
+2012-07-03
+
+Users/nelle/writing:
+data
+haiku.txt
+old
+thesis
+tools
+#+end_example
+
+We don't want to see all of those files
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+ls -R 
+#+END_SRC
+
+
+In the last 3 lines of the data files, which have the value
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+tail -n3 NENE02040B.txt
+#+END_SRC
+
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+tail -n3 NENE02040B.txt
+#+END_SRC
+
+
+
+#+BEGIN_SRC sh :results output :exports both :dir /home/pauljohn/work
+echo $PWD
+#+END_SRC
+
+#+RESULTS:
+: /home/pauljohn/work
+
+
+#+BEGIN_SRC sh :results output :exports both :dir /tmp
+echo $PWD
+echo $HOSTNAME
+#+END_SRC
+
+#+RESULTS:
+: /tmp
+: 
+
+
