@@ -622,7 +622,9 @@ more NENE02040B.txt
 *q* to quit
 
 
-* Why didn't we have to type "/usr/bin/git"?
+* Executable Path
+
+*Question*: Why didn't we have to type "/usr/bin/git"?
 
 ** Launch a program by name, including all directory structure
 
@@ -749,7 +751,9 @@ in the path, and if we are not asked, then we do it manually.
 
 
 
-* Programs talk to each other: The Pipe "|"
+* Programs talk to each other
+
+** The Pipe "|"
 
 Many of the traditional Unix functions are build so that the output of
 one function can "go into" another one. Sending "standard output" from
@@ -761,20 +765,112 @@ are designed this way.
 - *wc* counts lines or words
 - *sort* sorts output alphabetically
 - *uniq* keeps unique items (sort first)
-- *grep* filters regular expressions 
+- *grep* filters (looks for text strings)
 
-This is still quite frequently used by text analysts.
+These is still quite frequently used by text analysts.
 
-** Count lines with *wc* ("word count" counts words too :) ). 
 
-How many lines are there in the file NENE02043B.txt?
+** Lets look at User nelle's files on molecules
 
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-wc NENE02043B.txt
+#+BEGIN_SRC 
+
+#+END_SRC
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+cd Users/nelle/molecules
+#+END_SRC
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+ls -la
+#+END_SRC
+
+These are small files, we might as well look at one:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+more cubane.pdb
 #+END_SRC
 
 #+RESULTS:
-:  300  300 4393 NENE02043B.txt
+#+begin_example
+::::::::::::::
+cubane.pdb
+::::::::::::::
+COMPND      CUBANE
+AUTHOR      DAVE WOODCOCK  95 12 06
+ATOM      1  C           1       0.789  -0.852   0.504  1.00  0.00
+ATOM      2  C           1      -0.161  -1.104  -0.624  1.00  0.00
+ATOM      3  C           1      -1.262  -0.440   0.160  1.00  0.00
+ATOM      4  C           1      -0.289  -0.202   1.284  1.00  0.00
+ATOM      5  C           1       1.203   0.513  -0.094  1.00  0.00
+ATOM      6  C           1       0.099   1.184   0.694  1.00  0.00
+ATOM      7  C           1      -0.885   0.959  -0.460  1.00  0.00
+ATOM      8  C           1       0.236   0.283  -1.269  1.00  0.00
+ATOM      9  H           1       1.410  -1.631   0.942  1.00  0.00
+ATOM     10  H           1      -0.262  -2.112  -1.024  1.00  0.00
+ATOM     11  H           1      -2.224  -0.925   0.328  1.00  0.00
+ATOM     12  H           1      -0.468  -0.501   2.315  1.00  0.00
+ATOM     13  H           1       2.224   0.892  -0.134  1.00  0.00
+ATOM     14  H           1       0.240   2.112   1.251  1.00  0.00
+ATOM     15  H           1      -1.565   1.730  -0.831  1.00  0.00
+ATOM     16  H           1       0.472   0.494  -2.315  1.00  0.00
+TER      17              1
+END
+#+end_example
+
+
+How many lines are there in the file cubane.pdb?
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l cubane.pdb
+#+END_SRC
+
+#+RESULTS:
+: 20 cubane.pdb
+
+If the file were bigger, we might just scan the top or the bottom 5
+lines (using head and tail)
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+head -5 cubane.pdb
+#+END_SRC
+
+#+RESULTS:
+: COMPND      CUBANE
+: AUTHOR      DAVE WOODCOCK  95 12 06
+: ATOM      1  C           1       0.789  -0.852   0.504  1.00  0.00
+: ATOM      2  C           1      -0.161  -1.104  -0.624  1.00  0.00
+: ATOM      3  C           1      -1.262  -0.440   0.160  1.00  0.00
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+tail -5 cubane.pdb
+#+END_SRC
+
+#+RESULTS:
+: ATOM     14  H           1       0.240   2.112   1.251  1.00  0.00
+: ATOM     15  H           1      -1.565   1.730  -0.831  1.00  0.00
+: ATOM     16  H           1       0.472   0.494  -2.315  1.00  0.00
+: TER      17              1
+: END
+
+
+
+** The wc program
+
+How many lines are there in the pdb files?
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc *.pdb
+#+END_SRC
+
+#+RESULTS:
+:   20  156 1158 cubane.pdb
+:   12   84  622 ethane.pdb
+:    9   57  422 methane.pdb
+:   30  246 1828 octane.pdb
+:   21  165 1226 pentane.pdb
+:   15  111  825 propane.pdb
+:  107  819 6081 total
 
 3 results: 
 
@@ -785,40 +881,87 @@ wc NENE02043B.txt
 -bytecount
 
 
-Usually I just want the number of items, should add "-l" flag.
+Usually I just want the number of rows, can add "-l" flag.
 
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-wc -l NENE02043B.txt
-#+END_SRC
 
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-wc -l N*.txt
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l *.pdb
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-  300 NENE01729A.txt
-  300 NENE01729B.txt
-  300 NENE01736A.txt
-  300 NENE01751A.txt
-  300 NENE01751B.txt
-  300 NENE01812A.txt
-  300 NENE01843A.txt
-  300 NENE01843B.txt
-  300 NENE01971Z.txt
-  300 NENE01978A.txt
-  300 NENE01978B.txt
-  240 NENE02018B.txt
-  300 NENE02040A.txt
-  300 NENE02040B.txt
-  300 NENE02040Z.txt
-  300 NENE02043A.txt
-  300 NENE02043B.txt
- 5040 total
-#+end_example
+:   20 cubane.pdb
+:   12 ethane.pdb
+:    9 methane.pdb
+:   30 octane.pdb
+:   21 pentane.pdb
+:   15 propane.pdb
+:  107 total
 
-Many of these functions are written so they can accept a number
-of files in the command line, there is no need to "loop" over them.
+
+The results are out of order, pipe them to the sort function:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l *.pdb | sort 
+#+END_SRC
+
+#+RESULTS:
+:    9   57  422 methane.pdb
+:   12   84  622 ethane.pdb
+:   15  111  825 propane.pdb
+:   20  156 1158 cubane.pdb
+:   21  165 1226 pentane.pdb
+:   30  246 1828 octane.pdb
+:  107  819 6081 total
+
+The results are still out of order, need to think harder (read help
+page). sort defaults to an alphabetical search, need to do numerical
+sort:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l *.pdb | sort -n
+#+END_SRC
+
+#+RESULTS:
+:    9 methane.pdb
+:   12 ethane.pdb
+:   15 propane.pdb
+:   20 cubane.pdb
+:   21 pentane.pdb
+:   30 octane.pdb
+:  107 total
+
+** ">" and ">>" for redirecting output
+
+The results (so far) have been printed into the screen. We
+may need a record, so we write them in a file.
+
+*>*  will ERASE a pre-existing file's content
+
+*>>* will add output to a pre-existing files, or create a new file.
+
+Try that with the sorted line list:
+
+ 
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l *.pdb | sort -n > records.txt
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+cat records.txt
+#+END_SRC
+
+#+RESULTS:
+:    9 methane.pdb
+:   12 ethane.pdb
+:   15 propane.pdb
+:   20 cubane.pdb
+:   21 pentane.pdb
+:   30 octane.pdb
+:  107 total
+
 
 *** Globs 
 

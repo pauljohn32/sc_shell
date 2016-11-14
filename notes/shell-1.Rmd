@@ -227,7 +227,28 @@ man ls
 
    * In Git BASH, those documents were omitted, so one can Google search "man ls".
    
+### Wildcards: Shell globs (*)
 
+`ls` lists everything by default. But it might be used to list
+
+   * only files that begin with "r"
+
+```
+ls a*
+```
+
+   * only files that end with ".Rmd"
+
+```
+ls *.Rmd
+```
+
+The symbol * matches anything, any number of times.
+
+Shell globs are easy and quick, but not very powerful.
+If you move further into the command line interface
+(or programming in general), the "regular expressions"
+will come into play.
 
 	
 ### The ls arguments I use most often are `-l` and `-a`

@@ -134,7 +134,7 @@ Center for Research Methods and Data Analysis, University of Kansas<br><a class=
 </address>
 <h4 class="author"><em>CRMDA Guide #41. Please visit <a href="http://crmda.ku.edu/guides" class="uri">http://crmda.ku.edu/guides</a> for updates.</em></h4>
 <h4 class="author"><em>Tags: command line, shell, Linux, Terminal</em></h4>
-<h4 class="date"><em>2016 November 11</em></h4>
+<h4 class="date"><em>2016 November 14</em></h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 This uses knitr to interleave shell commands and output, using the CRMDA style sheet.
@@ -345,21 +345,61 @@ This uses knitr to interleave shell commands and output, using the CRMDA style s
 <li><p>See why color-coded output in the Terminal was a major breakthrough?</p></li>
 </ul>
 <pre class="bash"><code>$ ls --color=never</code></pre>
-<pre><code>output: rmd2html.sh
+<pre><code>output: ou_swc_files
+output: rmd2html.sh
 output: shell-1.html
 output: shell-1.Rmd
+output: shell-2.aux
+output: shell-2.html
+output: shell-2.html~
+output: shell-2.log
+output: shell-2.org
+output: shell-2.org~
+output: shell-2.out
+output: shell-2.Rmd
+output: shell-2.tex
+output: shell-2.tex~
+output: shell-2.toc
+output: shell-3.html
+output: shell-3.html~
+output: shell-3.org
+output: shell-3.org~
 output: shell.html
 output: shell.Rmd
+output: test_dummy.html
+output: #test_dummy.Rmd#
+output: test_dummy.Rmd
+output: test_dummy.Rmd~
 output: tmpout</code></pre>
 <ul>
 <li>In the olden days, before color-coded output, they would add the argument -F to put a slash on the end of directory names so that they were visibly different</li>
 </ul>
 <pre class="bash"><code>$ ls --color=never -F </code></pre>
-<pre><code>output: rmd2html.sh*
+<pre><code>output: ou_swc_files/
+output: rmd2html.sh*
 output: shell-1.html
 output: shell-1.Rmd
+output: shell-2.aux
+output: shell-2.html
+output: shell-2.html~
+output: shell-2.log
+output: shell-2.org
+output: shell-2.org~
+output: shell-2.out
+output: shell-2.Rmd
+output: shell-2.tex
+output: shell-2.tex~
+output: shell-2.toc
+output: shell-3.html
+output: shell-3.html~
+output: shell-3.org
+output: shell-3.org~
 output: shell.html
 output: shell.Rmd
+output: test_dummy.html
+output: #test_dummy.Rmd#
+output: test_dummy.Rmd
+output: test_dummy.Rmd~
 output: tmpout/</code></pre>
 <ul>
 <li>On Mac and Linux, one can read the built-in manual page for ls to see all possibilities</li>
@@ -369,43 +409,119 @@ output: tmpout/</code></pre>
 <li>In Git BASH, those documents were omitted, so one can Google search “man ls”.</li>
 </ul>
 </div>
+<div id="wildcards-shell-globs" class="section level3">
+<h3>Wildcards: Shell globs (*)</h3>
+<p><code>ls</code> lists everything by default. But it might be used to list</p>
+<ul>
+<li>only files that begin with “r”</li>
+</ul>
+<pre><code>ls a*</code></pre>
+<ul>
+<li>only files that end with “.Rmd”</li>
+</ul>
+<pre><code>ls *.Rmd</code></pre>
+<p>The symbol * matches anything, any number of times.</p>
+<p>Shell globs are easy and quick, but not very powerful. If you move further into the command line interface (or programming in general), the “regular expressions” will come into play.</p>
+</div>
 <div id="the-ls-arguments-i-use-most-often-are--l-and--a" class="section level3">
 <h3>The ls arguments I use most often are <code>-l</code> and <code>-a</code></h3>
 <pre><code>* Default will not list &quot;hidden&quot; items, things that begin with period</code></pre>
 <pre class="bash"><code>$ ls -a</code></pre>
 <pre><code>output: .
 output: ..
+output: ou_swc_files
 output: .Rhistory
 output: rmd2html.sh
 output: shell-1.html
 output: shell-1.Rmd
+output: shell-2.aux
+output: shell-2.html
+output: shell-2.html~
+output: shell-2.log
+output: shell-2.org
+output: shell-2.org~
+output: shell-2.out
+output: shell-2.Rmd
+output: shell-2.tex
+output: shell-2.tex~
+output: shell-2.toc
+output: shell-3.html
+output: shell-3.html~
+output: shell-3.org
+output: shell-3.org~
 output: shell.html
 output: shell.Rmd
+output: test_dummy.html
+output: .#test_dummy.Rmd
+output: #test_dummy.Rmd#
+output: test_dummy.Rmd
+output: test_dummy.Rmd~
 output: tmpout</code></pre>
 <ul>
 <li>The -l argument asks for more comprehensive information</li>
 </ul>
 <pre class="bash"><code>$ ls -l</code></pre>
-<pre><code>output: total 1480
+<pre><code>output: total 2460
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 <ul>
 <li>Often I put the two together</li>
 </ul>
 <pre class="bash"><code>$ ls -la</code></pre>
-<pre><code>output: total 1492
-output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 19:11 .
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ..
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2472
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 14 13:30 .
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ..
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout</code></pre>
 <ul>
 <li>The far left part is read, write, and execute permissions.</li>
@@ -715,57 +831,120 @@ $ rm -rf mistake</code></pre>
 $ touch mistake/myfile2.txt
 $ ls -la mistake</code></pre>
 <pre><code>output: total 8
-output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 .
-output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ..
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile1.txt
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile2.txt</code></pre>
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 14 13:30 .
+output: drwxrwxr-x 5 pauljohn pauljohn 4096 Nov 14 13:30 ..
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 14 13:30 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 14 13:30 myfile2.txt</code></pre>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1496
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 mistake/
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2476
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 14 13:30 ./
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ../
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 14 13:30 mistake/
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files/
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 </div>
 <div id="move-a-directory-rename-that-directory" class="section level3">
 <h3>Move a directory = rename that directory</h3>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1496
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 mistake/
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2476
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 14 13:30 ./
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ../
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 14 13:30 mistake/
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files/
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 <pre class="bash"><code>$ mv mistake success</code></pre>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1496
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2476
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 14 13:30 ./
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ../
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files/
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 success/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 14 13:30 success/
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/</code></pre>
 <p>Check that the files are still in there</p>
 <pre class="bash"><code>$ ls -laF success</code></pre>
 <pre><code>output: total 8
-output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 ./
-output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ../
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile1.txt
-output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile2.txt</code></pre>
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 14 13:30 ./
+output: drwxrwxr-x 5 pauljohn pauljohn 4096 Nov 14 13:30 ../
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 14 13:30 myfile1.txt
+output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 14 13:30 myfile2.txt</code></pre>
 </div>
 <div id="move-a-directory-relocate-whole-directory-and-all-contents-within" class="section level3">
 <h3>Move a directory = relocate whole directory (and all contents within)</h3>
@@ -777,31 +956,72 @@ output: -rw-rw-r-- 1 pauljohn pauljohn    0 Nov 11 19:11 myfile2.txt</code></pre
 $ ls -F
 $ # Move success into wonderful:
 $ mv success wonderful</code></pre>
-<pre><code>output: rmd2html.sh*
+<pre><code>output: ou_swc_files/
+output: rmd2html.sh*
 output: shell-1.html
 output: shell-1.Rmd
+output: shell-2.aux
+output: shell-2.html
+output: shell-2.html~
+output: shell-2.log
+output: shell-2.org
+output: shell-2.org~
+output: shell-2.out
+output: shell-2.Rmd
+output: shell-2.tex
+output: shell-2.tex~
+output: shell-2.toc
+output: shell-3.html
+output: shell-3.html~
+output: shell-3.org
+output: shell-3.org~
 output: shell.html
 output: shell.Rmd
 output: success/
+output: test_dummy.html
+output: #test_dummy.Rmd#
+output: test_dummy.Rmd
+output: test_dummy.Rmd~
 output: tmpout/
 output: wonderful/</code></pre>
 <pre class="bash"><code>$ ls -laF</code></pre>
-<pre><code>output: total 1496
-output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 11 19:11 ./
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2476
+output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 14 13:30 ./
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ../
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files/
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/
-output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 11 19:11 wonderful/</code></pre>
+output: drwxrwxr-x 3 pauljohn pauljohn   4096 Nov 14 13:30 wonderful/</code></pre>
 <pre class="bash"><code>$ ls -laF wonderful</code></pre>
 <pre><code>output: total 12
-output: drwxrwxr-x 3 pauljohn pauljohn 4096 Nov 11 19:11 ./
-output: drwxrwxr-x 4 pauljohn pauljohn 4096 Nov 11 19:11 ../
-output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 11 19:11 success/</code></pre>
+output: drwxrwxr-x 3 pauljohn pauljohn 4096 Nov 14 13:30 ./
+output: drwxrwxr-x 5 pauljohn pauljohn 4096 Nov 14 13:30 ../
+output: drwxrwxr-x 2 pauljohn pauljohn 4096 Nov 14 13:30 success/</code></pre>
 </div>
 <div id="move-a-directory-up-to-home-directory" class="section level3">
 <h3>Move a directory “Up” to $HOME directory</h3>
@@ -815,18 +1035,39 @@ $ cd ..</code></pre>
 <p>where we started.</p>
 <pre class="bash"><code>$ mv ~/success  .
 $ ls -laF</code></pre>
-<pre><code>output: total 1500
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 19:11 ./
-output: drwxrwxr-x 5 pauljohn pauljohn   4096 Nov 11 17:52 ../
-output: -rw-rw-r-- 1 pauljohn pauljohn    810 Nov 11 08:38 .Rhistory
+<pre><code>output: total 2480
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 14 13:30 ./
+output: drwxrwxr-x 4 pauljohn pauljohn   4096 Nov 13 10:44 ../
+output: drwxrwxr-x 6 pauljohn pauljohn   4096 Nov 11 19:20 ou_swc_files/
+output: -rw-rw-r-- 1 pauljohn pauljohn    822 Nov 14 09:03 .Rhistory
 output: -rwxrwxr-x 1 pauljohn pauljohn   1182 Nov 11 08:38 rmd2html.sh*
-output: -rw-rw-r-- 1 pauljohn pauljohn 756101 Nov 11 19:09 shell-1.html
-output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 11 19:11 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn 769584 Nov 14 13:28 shell-1.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  22165 Nov 14 13:30 shell-1.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn   6903 Nov 13 15:22 shell-2.aux
+output: -rw-rw-r-- 1 pauljohn pauljohn  44626 Nov 13 15:21 shell-2.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  44623 Nov 13 15:16 shell-2.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn  41563 Nov 13 15:22 shell-2.log
+output: -rw-rw-r-- 1 pauljohn pauljohn  25598 Nov 14 13:18 shell-2.org
+output: -rw-rw-r-- 1 pauljohn pauljohn  13993 Nov 13 13:04 shell-2.org~
+output: -rw-rw-r-- 1 pauljohn pauljohn   2488 Nov 13 15:22 shell-2.out
+output: -rw-rw-r-- 1 pauljohn pauljohn   1431 Nov 11 19:31 shell-2.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  26446 Nov 13 15:22 shell-2.tex
+output: -rw-rw-r-- 1 pauljohn pauljohn  16246 Nov 13 14:05 shell-2.tex~
+output: -rw-rw-r-- 1 pauljohn pauljohn      0 Nov 13 15:22 shell-2.toc
+output: -rw-rw-r-- 1 pauljohn pauljohn  16300 Nov 13 16:21 shell-3.html
+output: -rw-rw-r-- 1 pauljohn pauljohn  12035 Nov 13 15:44 shell-3.html~
+output: -rw-rw-r-- 1 pauljohn pauljohn   5629 Nov 13 16:25 shell-3.org
+output: -rw-rw-r-- 1 pauljohn pauljohn   1416 Nov 13 15:33 shell-3.org~
 output: -rw-rw-r-- 1 pauljohn pauljohn 719850 Nov 11 17:34 shell.html
 output: -rw-rw-r-- 1 pauljohn pauljohn    286 Nov 11 08:38 shell.Rmd
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 success/
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 14 13:30 success/
+output: -rw-rw-r-- 1 pauljohn pauljohn 669702 Nov 14 09:02 test_dummy.html
+output: lrwxrwxrwx 1 pauljohn pauljohn     35 Nov 14 09:03 .#test_dummy.Rmd -&gt; pauljohn@delllap-16.3060:1478924101
+output: -rw-rw-r-- 1 pauljohn pauljohn   3063 Nov 14 09:10 #test_dummy.Rmd#
+output: -rw-rw-r-- 1 pauljohn pauljohn   2535 Nov 14 09:03 test_dummy.Rmd
+output: -rw-rw-r-- 1 pauljohn pauljohn  21726 Nov 14 08:36 test_dummy.Rmd~
 output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 08:38 tmpout/
-output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 11 19:11 wonderful/</code></pre>
+output: drwxrwxr-x 2 pauljohn pauljohn   4096 Nov 14 13:30 wonderful/</code></pre>
 <p>“<strong>.</strong>”: Period is shorthand for here!, the current working directory</p>
 </div>
 <div id="poor-persons-trash-folder" class="section level2">
@@ -845,10 +1086,10 @@ $ fi</code></pre>
 <pre class="bash"><code>$ mv wonderful ~/Trash </code></pre>
 <pre class="bash"><code>$ ls -laF ~/Trash</code></pre>
 <pre><code>output: total 16
-output: drwxrwxr-x  4 pauljohn pauljohn 4096 Nov 11 19:11 ./
-output: drwxr-xr-x 81 pauljohn pauljohn 4096 Nov 11 19:11 ../
+output: drwxrwxr-x  4 pauljohn pauljohn 4096 Nov 14 13:30 ./
+output: drwxr-xr-x 82 pauljohn pauljohn 4096 Nov 14 13:30 ../
 output: drwxr-xr-x  5 pauljohn pauljohn 4096 Jul  9 22:17 VBox/
-output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 11 19:11 wonderful/</code></pre>
+output: drwxrwxr-x  2 pauljohn pauljohn 4096 Nov 14 13:30 wonderful/</code></pre>
 </div>
 <div id="quick-summary-5" class="section level2">
 <h2>Quick Summary</h2>
