@@ -1,13 +1,12 @@
 ---
 title: "Command Line, Shell"
-subtitle: "Software Carpentry Notes #1"
+subtitle: "Notes #1 for SC Workshop"
 author:
  - name: Paul Johnson
    affiliation: Center for Research Methods and Data Analysis, University of Kansas
    email: pauljohn@ku.edu
  - name: "CRMDA Guide #41. Please visit [http://crmda.ku.edu/guides](http://crmda.ku.edu/guides) for updates." 
  - name: "Tags: command line, shell, Linux, Terminal"
-
 abstract: 
     This uses knitr to interleave shell commands and output, using the CRMDA style sheet.
 checked_by: "First Last"
@@ -15,7 +14,9 @@ Note to Authors: please_dont_change_the_next 4 lines!
 date: "`r format(Sys.time(), '%Y %B %d')`"
 output:
   html_document:
+    css: kutils.css
     highlight: haddock
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
