@@ -818,14 +818,6 @@ END
 #+end_example
 
 
-How many lines are there in the file cubane.pdb?
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
-wc -l cubane.pdb
-#+END_SRC
-
-#+RESULTS:
-: 20 cubane.pdb
 
 If the file were bigger, we might just scan the top or the bottom 5
 lines (using head and tail)
@@ -856,6 +848,16 @@ tail -5 cubane.pdb
 
 
 ** The wc program
+
+How many lines are there in the file cubane.pdb?
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+wc -l cubane.pdb
+#+END_SRC
+
+#+RESULTS:
+: 20 cubane.pdb
+
 
 How many lines are there in the pdb files?
 

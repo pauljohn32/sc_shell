@@ -2,80 +2,80 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1d62c40">1. Get the SWC files</a>
+<li><a href="#org7d192b3">1. Get the SWC files</a>
 <ul>
-<li><a href="#org493b145">1.1. We use git as a file retriever.</a></li>
-<li><a href="#org081470e">1.2. <b>ls</b>: Inspect those files</a></li>
-<li><a href="#org79e28b7">1.3. Use du check disk space used</a>
+<li><a href="#org7b25910">1.1. We use git as a file retriever.</a></li>
+<li><a href="#org73053bb">1.2. <b>ls</b>: Inspect those files</a></li>
+<li><a href="#orgd81ec1f">1.3. Use du check disk space used</a>
 <ul>
-<li><a href="#orgdc0fdef">1.3.1. Want less detail? add "&#x2013;max-depth" flag</a></li>
+<li><a href="#org9e9904b">1.3.1. Want less detail? add "&#x2013;max-depth" flag</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org87308df">2. Inspect Contents (cat, head, tail)</a>
+<li><a href="#org84bac2b">2. Inspect Contents (cat, head, tail)</a>
 <ul>
-<li><a href="#org5aaf74e">2.1. The North Pacific Gyre data</a>
+<li><a href="#org90d4f41">2.1. The North Pacific Gyre data</a>
 <ul>
-<li><a href="#org98550af">2.1.1. cd into directory that has some of Nelle's data</a></li>
+<li><a href="#orgdb2f71b">2.1.1. cd into directory that has some of Nelle's data</a></li>
 </ul>
 </li>
-<li><a href="#org8b8ca67">2.2. cat: "concatenate" files and write on standard output</a></li>
-<li><a href="#org4fc374f">2.3. head and tail: checking contents of big files</a>
+<li><a href="#orgd28b5b6">2.2. cat: "concatenate" files and write on standard output</a></li>
+<li><a href="#org40d59bf">2.3. head and tail: checking contents of big files</a>
 <ul>
-<li><a href="#orgee0bc80">2.3.1. head</a></li>
-<li><a href="#org5a3917d">2.3.2. tail: check the last (default: 10) lines</a></li>
+<li><a href="#org93dff6d">2.3.1. head</a></li>
+<li><a href="#org267301d">2.3.2. tail: check the last (default: 10) lines</a></li>
 </ul>
 </li>
-<li><a href="#orgcb3089e">2.4. more and less</a>
+<li><a href="#orga9cc988">2.4. more and less</a>
 <ul>
-<li><a href="#org78a80bf">2.4.1. Run the more program to see "one screen at a time".</a></li>
+<li><a href="#org196b373">2.4.1. Run the more program to see "one screen at a time".</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgf886297">3. Executable Path</a>
+<li><a href="#orgc8d7c86">3. Executable Path</a>
 <ul>
-<li><a href="#org34bf484">3.1. Launch a program by name, including all directory structure</a></li>
-<li><a href="#orgbfb83ae">3.2. Enter the <b>PATH</b></a>
+<li><a href="#orgb75c1e9">3.1. Launch a program by name, including all directory structure</a></li>
+<li><a href="#org6eb728d">3.2. Enter the <b>PATH</b></a>
 <ul>
-<li><a href="#org2f50edc">3.2.1. Note what Git Bash does</a></li>
+<li><a href="#org3e1d099">3.2.1. Note what Git Bash does</a></li>
 </ul>
 </li>
-<li><a href="#org57b7b18">3.3. Text versus GUI programs</a>
+<li><a href="#org123d470">3.3. Text versus GUI programs</a>
 <ul>
-<li><a href="#orgdcbc290">3.3.1. On a Linux/Unix system, simply typing a GUI program's name will</a></li>
-<li><a href="#org791170b">3.3.2. On Macintosh:</a></li>
-<li><a href="#orgea32f2a">3.3.3. Windows</a></li>
+<li><a href="#orgae73aa5">3.3.1. On a Linux/Unix system, simply typing a GUI program's name will</a></li>
+<li><a href="#org8bc2702">3.3.2. On Macintosh:</a></li>
+<li><a href="#org92d2711">3.3.3. Windows</a></li>
 </ul>
 </li>
-<li><a href="#org59183ee">3.4. What about programs that are not on the PATH?</a>
+<li><a href="#orgbcdbba7">3.4. What about programs that are not on the PATH?</a>
 <ul>
-<li><a href="#org1cb4f5a">3.4.1. We are swimming upstream, unfortunately</a></li>
+<li><a href="#orgb25c7d9">3.4.1. We are swimming upstream, unfortunately</a></li>
 </ul>
 </li>
-<li><a href="#orgfa41add">3.5. Need to add some directories to the PATH, probably&#x2026;</a></li>
+<li><a href="#org39527f0">3.5. Need to add some directories to the PATH, probably&#x2026;</a></li>
 </ul>
 </li>
-<li><a href="#org0319813">4. Programs talk to each other</a>
+<li><a href="#orgea3aeae">4. Programs talk to each other</a>
 <ul>
-<li><a href="#org5e6aa6e">4.1. The Pipe "|"</a></li>
-<li><a href="#orga0ba94a">4.2. Programs I associate with back end of the pipe</a></li>
-<li><a href="#org68ac502">4.3. Lets look at User nelle's files on molecules</a></li>
-<li><a href="#orgfce906f">4.4. The wc program</a></li>
-<li><a href="#orgfdb1c0d">4.5. "&gt;" and "&gt;&gt;" for redirecting output</a></li>
-<li><a href="#org1cc6ee5">4.6. Pipe to more or less, for example</a></li>
+<li><a href="#org68a2ec1">4.1. The Pipe "|"</a></li>
+<li><a href="#orgac03bac">4.2. Programs I associate with back end of the pipe</a></li>
+<li><a href="#org8a10c5b">4.3. Lets look at User nelle's files on molecules</a></li>
+<li><a href="#orge0a2e6c">4.4. The wc program</a></li>
+<li><a href="#org54c2d28">4.5. "&gt;" and "&gt;&gt;" for redirecting output</a></li>
+<li><a href="#org2b71b75">4.6. Pipe to more or less, for example</a></li>
 </ul>
 </li>
-<li><a href="#org0e23201">5. grep is for Filtering</a>
+<li><a href="#org3fc435d">5. grep is for Filtering</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org6f7e87b">5.0.1. What is "regular expression"</a></li>
-<li><a href="#org4289b06">5.0.2. Get out of jail free card for grep users</a></li>
+<li><a href="#org51d77c6">5.0.1. What is "regular expression"</a></li>
+<li><a href="#org6f12963">5.0.2. Get out of jail free card for grep users</a></li>
 </ul>
 </li>
-<li><a href="#orgc54f5e7">5.1. Use these skills to check the North Pacific Gyre data</a></li>
+<li><a href="#org6ed2a79">5.1. Use these skills to check the North Pacific Gyre data</a></li>
 </ul>
 </li>
 </ul>
@@ -83,12 +83,12 @@
 </div>
 
 
-<a id="org1d62c40"></a>
+<a id="org7d192b3"></a>
 
 # Get the SWC files
 
 
-<a id="org493b145"></a>
+<a id="org7b25910"></a>
 
 ## We use git as a file retriever.
 
@@ -101,7 +101,7 @@ Git's project management concepts will be discussed elsewhere.
     cd ou_swc_files
 
 
-<a id="org081470e"></a>
+<a id="org73053bb"></a>
 
 ## **ls**: Inspect those files
 
@@ -478,7 +478,7 @@ Git's project management concepts will be discussed elsewhere.
     oldtool
 
 
-<a id="org79e28b7"></a>
+<a id="orgd81ec1f"></a>
 
 ## Use du check disk space used
 
@@ -531,7 +531,7 @@ Default unit of measurement will be value not useful to humans, so add
     1.7M	.
 
 
-<a id="orgdc0fdef"></a>
+<a id="org9e9904b"></a>
 
 ### Want less detail? add "&#x2013;max-depth" flag
 
@@ -544,17 +544,17 @@ Default unit of measurement will be value not useful to humans, so add
     1.7M	.
 
 
-<a id="org87308df"></a>
+<a id="org84bac2b"></a>
 
 # Inspect Contents (cat, head, tail)
 
 
-<a id="org5aaf74e"></a>
+<a id="org90d4f41"></a>
 
 ## The North Pacific Gyre data
 
 
-<a id="org98550af"></a>
+<a id="orgdb2f71b"></a>
 
 ### cd into directory that has some of Nelle's data
 
@@ -586,7 +586,7 @@ Default unit of measurement will be value not useful to humans, so add
     -r--r--r-- 1 pauljohn pauljohn 4393 Nov 13 10:49 NENE02043B.txt
 
 
-<a id="org8b8ca67"></a>
+<a id="orgd28b5b6"></a>
 
 ## cat: "concatenate" files and write on standard output
 
@@ -606,12 +606,12 @@ Default unit of measurement will be value not useful to humans, so add
 This is a "shell script", a series of commands cobbled together.
 
 
-<a id="org4fc374f"></a>
+<a id="org40d59bf"></a>
 
 ## head and tail: checking contents of big files
 
 
-<a id="orgee0bc80"></a>
+<a id="org93dff6d"></a>
 
 ### head
 
@@ -656,7 +656,7 @@ version is
     1.40467049524
 
 
-<a id="org5a3917d"></a>
+<a id="org267301d"></a>
 
 ### tail: check the last (default: 10) lines
 
@@ -680,7 +680,7 @@ version is
     0.788386986395
 
 
-<a id="orgcb3089e"></a>
+<a id="orga9cc988"></a>
 
 ## more and less
 
@@ -695,7 +695,7 @@ are able to scroll back in history, but these are not always
 available.
 
 
-<a id="org78a80bf"></a>
+<a id="org196b373"></a>
 
 ### Run the more program to see "one screen at a time".
 
@@ -706,14 +706,14 @@ available.
 **q** to quit
 
 
-<a id="orgf886297"></a>
+<a id="orgc8d7c86"></a>
 
 # Executable Path
 
 **Question**: Why didn't we have to type "/usr/bin/git"?
 
 
-<a id="org34bf484"></a>
+<a id="orgb75c1e9"></a>
 
 ## Launch a program by name, including all directory structure
 
@@ -727,7 +727,7 @@ We don't usually have to do that for the most frequently used
 programs in the shell.  
 
 
-<a id="orgbfb83ae"></a>
+<a id="org6eb728d"></a>
 
 ## Enter the **PATH**
 
@@ -748,7 +748,7 @@ My path has the "bin" directory in my user account, plus lots
 of others that come with the OS.
 
 
-<a id="org2f50edc"></a>
+<a id="org3e1d099"></a>
 
 ### Note what Git Bash does
 
@@ -757,7 +757,7 @@ you might see in Windows description of itself (to see what I mean,
 run the program "cmd" and type "echo %PATH%".)
 
 
-<a id="org57b7b18"></a>
+<a id="org123d470"></a>
 
 ## Text versus GUI programs
 
@@ -766,14 +766,14 @@ run the program "cmd" and type "echo %PATH%".)
 -   GUI programs can be "launched" onto desktop
 
 
-<a id="orgdcbc290"></a>
+<a id="orgae73aa5"></a>
 
 ### On a Linux/Unix system, simply typing a GUI program's name will
 
 launch it on the screen.
 
 
-<a id="org791170b"></a>
+<a id="org8bc2702"></a>
 
 ### On Macintosh:
 
@@ -789,7 +789,7 @@ default program to open the file-name-or-URL
 See: <http://brettterpstra.com/2014/08/06/shell-tricks-the-os-x-open-command/>
 
 
-<a id="orgea32f2a"></a>
+<a id="org92d2711"></a>
 
 ### Windows
 
@@ -807,7 +807,7 @@ projects in this way.
     $ explorer .
 
 
-<a id="org59183ee"></a>
+<a id="orgbcdbba7"></a>
 
 ## What about programs that are not on the PATH?
 
@@ -820,7 +820,7 @@ projects in this way.
 permanently in the OS setup).
 
 
-<a id="org1cb4f5a"></a>
+<a id="orgb25c7d9"></a>
 
 ### We are swimming upstream, unfortunately
 
@@ -835,7 +835,7 @@ where users can
 2.  Launch from "open with" feature in file manager
 
 
-<a id="orgfa41add"></a>
+<a id="org39527f0"></a>
 
 ## Need to add some directories to the PATH, probably&#x2026;
 
@@ -848,12 +848,12 @@ forth, we always say YES if the installer offers to put the programs
 in the path, and if we are not asked, then we do it manually.
 
 
-<a id="org0319813"></a>
+<a id="orgea3aeae"></a>
 
 # Programs talk to each other
 
 
-<a id="org5e6aa6e"></a>
+<a id="org68a2ec1"></a>
 
 ## The Pipe "|"
 
@@ -863,7 +863,7 @@ the first as "standard input" to the follower. Many, not all programs,
 are designed this way.
 
 
-<a id="orga0ba94a"></a>
+<a id="orgac03bac"></a>
 
 ## Programs I associate with back end of the pipe
 
@@ -875,7 +875,7 @@ are designed this way.
 These is still quite frequently used by text analysts.
 
 
-<a id="org68ac502"></a>
+<a id="org8a10c5b"></a>
 
 ## Lets look at User nelle's files on molecules
 
@@ -893,7 +893,7 @@ These is still quite frequently used by text analysts.
     -rw-rw-r-- 1 pauljohn pauljohn 1828 Nov 13 10:49 octane.pdb
     -rw-rw-r-- 1 pauljohn pauljohn 1226 Nov 13 10:49 pentane.pdb
     -rw-rw-r-- 1 pauljohn pauljohn  825 Nov 13 10:49 propane.pdb
-    -rw-rw-r-- 1 pauljohn pauljohn  110 Nov 14 13:17 records.txt
+    -rw-rw-r-- 1 pauljohn pauljohn  110 Nov 14 18:17 records.txt
 
 These are small files, we might as well look at one:
 
@@ -923,12 +923,6 @@ These are small files, we might as well look at one:
     TER      17              1
     END
 
-How many lines are there in the file cubane.pdb?
-
-    wc -l cubane.pdb
-
-    20 cubane.pdb
-
 If the file were bigger, we might just scan the top or the bottom 5
 lines (using head and tail)
 
@@ -949,9 +943,15 @@ lines (using head and tail)
     END
 
 
-<a id="orgfce906f"></a>
+<a id="orge0a2e6c"></a>
 
 ## The wc program
+
+How many lines are there in the file cubane.pdb?
+
+    wc -l cubane.pdb
+
+    20 cubane.pdb
 
 How many lines are there in the pdb files?
 
@@ -1012,7 +1012,7 @@ sort:
     107 total
 
 
-<a id="orgfdb1c0d"></a>
+<a id="org54c2d28"></a>
 
 ## ">" and ">>" for redirecting output
 
@@ -1038,7 +1038,7 @@ Try that with the sorted line list:
     107 total
 
 
-<a id="org1cc6ee5"></a>
+<a id="org2b71b75"></a>
 
 ## Pipe to more or less, for example
 
@@ -1053,7 +1053,7 @@ I often find myself tacking on the end of the command line with either
 -   "cat file1 file2 | less"
 
 
-<a id="org0e23201"></a>
+<a id="org3fc435d"></a>
 
 # grep is for Filtering
 
@@ -1096,7 +1096,7 @@ Pipe that to grep to just keep the ones that have "COMPND"
     COMPND      PROPANE
 
 
-<a id="org6f7e87b"></a>
+<a id="org51d77c6"></a>
 
 ### What is "regular expression"
 
@@ -1158,7 +1158,7 @@ page that suggest you use programs like "tr", "sed", "perl" or such,
 you will know (vaguely) what they are talking about.
 
 
-<a id="org4289b06"></a>
+<a id="org6f12963"></a>
 
 ### Get out of jail free card for grep users
 
@@ -1375,7 +1375,7 @@ Perhaps I only want to see the ones that have "txt" in their names:
     haiku.txt
 
 
-<a id="orgc54f5e7"></a>
+<a id="org6ed2a79"></a>
 
 ## Use these skills to check the North Pacific Gyre data
 
