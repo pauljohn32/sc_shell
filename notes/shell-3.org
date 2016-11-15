@@ -1,0 +1,394 @@
+#+Title: Shell-3: loops, scripts
+#+Author: Paul E. Johnson <pauljohn@ku.edu>
+#+Date: <2016-11-13>
+#+PROPERTY: header-args :tangle yes :exports both :results output 
+#+INCLUDE: /home/pauljohn/GIT/github/org-macros/org-macros.setup
+
+* Process lots of files
+
+** Fairly common problem
+
+1. Data collection generates 1000s of data files and each one must be
+   processed separately.
+
+2. Project generates 1000s of pdf files and we are required to look
+   through a large random sample, one-by-one.
+
+3. Vacation photos are saved in super high resolution and we need to
+   convert each one to something smaller for Instagram.
+
+* The shell offers a convenient "for" loop that can handle this.
+
+#+BEGIN_EXAMPLE
+for index ...items list here...
+   do
+      ...commands involving $index
+done
+#+END_EXAMPLE
+
+*Syntax*:  
+
+1. *for*: Lets the shell know something is coming.
+2. An "index" variable is created, which is used to refer to each one
+   of the things, one at a time
+3. Keywords *do* and *done* are bookmarks for a sequence of shell statements.
+
+** My Vacation Photo example.
+
+When I went on vacation, I saved photos that were way too huge. There
+is a handy free program named "convert" that can rescale images
+however you like, but it wants one file at a time. The syntax for
+that is
+
+#+BEGIN_EXAMPLE
+$ convert file.jpg -resize 1400x1050 -quality 85 file.new.jpg
+#+END_EXAMPLE
+
+To process a lot of files, it is necessary to take each file, create a
+new name, and then run convert on each one. 
+
+I want output that takes the old name *file.jpg* and creates
+the new name *file-1400x1050.jpg*. This file name part of the
+assignment creates a little detour on splitting the file name in two
+pieces. There is a handy program called *basename* that I use
+often. 
+
+We can write this out in 2 ways
+
+1. The "jam it all into 1 line method" uses semi-colon (;) for
+   puncutation.
+
+   #+BEGIN_EXAMPLE
+   $ for fn in *.jpg; do base=`basename $fn .jpg`; convert $fn -resize 1400x1050 -quality 85 $base-1400x1050.jpg; done
+   #+END_EXAMPLE
+
+2. The patient shell approach. BASH knows you are not
+done typing when you hit return, it waits (signalling ">" to you)
+
+#+BEGIN_EXAMPLE
+$ for fn in *.jpg
+> do 
+>   base=`basename $fn .jpg` 
+>   convert $fn -resize 1400x1050 -quality 85 $base-1400x1050.jpg
+> done
+#+END_EXAMPLE
+
+If you type that in, the shell will wait until you hit enter after
+done to begin.
+
+Tricky bits. 
+
+1. The first "fn" has no dollar sign, but when it is accessed, "$fn" it
+   does! Among programming languages, that is unusual. The variable is
+   created with no dollar sign, but to access it we require the dollar
+   sign.
+
+2. The "do" statement applies to all of the lines that follow, until
+   done. The one line method makes it appear as though it only applies
+   to the first.
+
+
+** North Pacific gyre data example
+
+Recall in the north-pacific-gyre folder, there are several data files
+to be processed.
+
+#+BEGIN_SRC sh :session :results none :exports none :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+rm -rf output
+#+END_SRC
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+ls N*.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+NENE01729A.txt
+NENE01729B.txt
+NENE01736A.txt
+NENE01751A.txt
+NENE01751B.txt
+NENE01812A.txt
+NENE01843A.txt
+NENE01843B.txt
+NENE01971Z.txt
+NENE01978A.txt
+NENE01978B.txt
+NENE02018B.txt
+NENE02040A.txt
+NENE02040B.txt
+NENE02040Z.txt
+NENE02043A.txt
+NENE02043B.txt
+#+end_example
+
+*Our Assignment*: Run each txt files through a data processing script.
+
+Recall the problems unearthed in data inspection
+
+   1. One file too small
+   2. The Z-ending files are not useful
+ 
+The shell script "goostats" is used to process each file and
+create a new data output file.
+
+
+** My opinion on where the output should go
+
+- I strongly prefer to keep the output in a separate output directory.
+- And I would almost certainly put the output directory outside the
+  current working directory.
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+mkdir ../output
+#+END_SRC
+
+
+Why do I like that? No danger of disrupting original data.
+
+In fact, I'd make the original data read only like so
+
+#+BEGIN_EXAMPLE
+chmod -w N*.txt
+#+END_EXAMPLE
+
+** goostats is a script included with the project. 
+
+Our assignment is to run each file through goostats. 
+
+*** run goostats once
+
+   * The correct way to process just one file, including 2 parameters
+     that professor said we needed.: 
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+bash goostats  -J 100 -r NENE01729A.txt ../output/NENE01729A-stats.txt
+#+END_SRC
+
+   * Did it work?
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+ls ../output
+#+END_SRC
+
+   * Lets remove that output folder before we try again
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+rm -rf  "../output"
+#+END_SRC
+
+
+*** For loop: run *over and over*
+
+#+BEGIN_EXAMPLE
+$ mkdir ../output
+$ for fn in *[AB].txt
+>    do
+>        bash goostats -J 100 -r "$fn" "../output/stats-$fn"
+> done
+#+END_EXAMPLE
+
+
+
+
+
+* Scripts and command line arguments
+
+** The Big Picture
+
+1. Test commands that work in the command line
+2. Put those lines into a file
+3. Work out the command line arguments problem
+4. Consider adding "hash-bang" in line 1
+
+
+*** Create the text file "dostats.sh".
+
+It looks nicer to write it like this:
+
+
+#+BEGIN_EXAMPLE
+for fn in *[AB].txt
+do
+    echo $fn
+    bash goostats -J 100 -r "$fn" "output/stats-$fn" 
+done
+#+END_EXAMPLE
+
+
+But it is allowed to use semi-colon to jamb it into one line
+
+#+BEGIN_EXAMPLE
+for fn in *[AB].txt; do  echo $fn;  bash goostats -J 100 -r "$fn" "../output/stats-$fn"; done
+#+END_EXAMPLE
+
+*** Deal with the command line arguments
+
+Now we have the file names hard coded in the script.
+
+Here we use the shortcut "$@" to grab all command line arguments
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03
+### rm -rf ../output
+mkdir ../output
+for fn in "$@"
+do
+    echo $fn
+    bash goostats -J 100 -r "$fn" "../output/stats-$fn" 
+done
+#+END_SRC
+
+#+RESULTS:
+
+
+
+** Command line arguments
+
+The shell command line arguments can be handled in many ways. The
+simple way simply used arguments by their position in the command
+line. This is not the best way, since there is no error checking
+on the inputs. However, it is commonly used in small projects.
+
+*** Key Terms
+
+Inside a shell script, these are the simple ways to access command
+line arguments.
+
+1. The dollar sign picks individual arguments
+
+   - $n means the n'th argument.
+
+   - $1 means "the first command line argument"
+   - $2 means "the second command line argument"
+
+2. $@ collects up all of the command line arguments.
+
+More rigorous ways exist to name and check command
+line arguments. Don't get too committed to the simple
+$1 $2 notation.
+
+*** Lets make a little test case.  
+
+*mytest.sh*
+
+#+BEGIN_EXAMPLE
+echo "$1"
+echo "$2"
+echo "OMG here is $1 again"
+echo "I'll splat them together $1$2"
+#+END_EXAMPLE
+
+I often forget the double-quotes on the arguments.
+
+Test that in the command line
+
+1. No quotes
+
+#+BEGIN_EXAMPLE
+sh mytest.sh hellopaul hellobill
+#+END_EXAMPLE
+
+2. Watch what goes wrong if you have a space in a argument name "hello paul"
+
+#+BEGIN_EXAMPLE
+sh mytest.sh hello paul hellobill
+#+END_EXAMPLE
+
+3. Need to quote the argument to keep the pieces together
+
+#+BEGIN_EXAMPLE
+sh mytest.sh "hello paul" hellobill
+#+END_EXAMPLE
+
+** Detour on executable files and "bash" as a program.
+
+Using goostats on a single file, novice might be tempted to run
+
+#+BEGIN_EXAMPLE
+goostats infile.txt outfile.txt
+#+END_EXAMPLE
+
+   However, we hit problem(s). 
+   1. goostats.sh is not executable, and
+   1. goostats.sh is not in the path
+
+So we can't run it
+
+   * My natural inclination would be to make goostats executable
+
+#+BEGIN_EXAMPLE
+chmod +x goostats.sh
+#+END_EXAMPLE
+
+   * and then run with the "./" trick
+
+#+BEGIN_EXAMPLE
+./goostats.sh infile.txt outfile.txt
+#+END_EXAMPLE
+
+   * however, for security reasons, the system administrators have
+     forbidden us from creating new executable files.
+
+   * there is a work-around, however, because even though "goostats"
+     is not executable, we are allowed to run the program "bash" and
+     it can open goostats and run it for us.
+
+
+   * `bash` or `sh` or other shells
+
+In the simple cases we are using here, it is virtually certain the 
+program would run in a simpler shell than BASH, such as the much more
+generic `sh` or the "lightweight" derivatives like `zsh`
+
+#+BEGIN_EXAMPLE
+sh goostats.sh
+#+END_EXAMPLE
+
+I mention this because on some large multi user systems, the `bash` 
+luxury might not be available, while `sh` almost certainly will be.
+
+
+
+
+** Detour about the hash-bang
+
+- If we could make this executable, then running it would not
+  guarantee the correct shell is used to run it. We want to make
+  sure that `bash` is used, for example.
+
+   We showed above it is possible to launch a program by passing it to
+   "bash". That's not unheard of, but it would be somewhat unusual to 
+   do this when the work is finished.
+
+- #! is pronounced "hash bang". 
+
+   Often people would insert a line 1 message like this
+
+#+BEGIN_EXAMPLE
+#!/bin/bash
+#+END_EXAMPLE
+
+- Make the script executable, run
+
+#+BEGIN_EXAMPLE
+chmod +x dostats.sh
+#+END_EXAMPLE
+
+- If we could make that executable, then we could launch the script
+
+#+BEGIN_EXAMPLE
+./handlegoo.sh
+#+END_EXAMPLE
+
+- But if we are not allowed to do that the usual Unix say, we run like this
+
+#+BEGIN_EXAMPLE
+bash handlegoo.sh
+#+END_EXAMPLE
+
+- The "-x" flag activates a debug mode in bash
+
+
+#+BEGIN_EXAMPLE
+bash -x handlegoo.sh
+#+END_EXAMPLE
