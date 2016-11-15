@@ -963,43 +963,6 @@ cat records.txt
 :  107 total
 
 
-*** Globs 
-
-I used a wildcard "*" in that expression. "*" matches anything, any
-number of characters, in Shell globbing.
-
-"?" matches any single chracter.  Test these:
-
-
-#+BEGIN_EXAMPLE
-$ ls *.txt
-#+END_EXAMPLE
-
-
-#+BEGIN_EXAMPLE
-$ ls *2040*.txt
-#+END_EXAMPLE
-
-
-
-To count the number of files going by, add "| wc"
-
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-ls | wc
-#+END_SRC
-
-#+RESULTS:
-:      19      19     272
-
-I always forget the "-l" to get just the number of lines.
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-ls | wc -l
-#+END_SRC
-
-#+RESULTS:
-: 19
 
 
 ** Pipe to more or less, for example
@@ -1015,24 +978,62 @@ I often find myself tacking on the end of the command line with either
 - "cat file1 file2 | less"
 
 
-
-
-
-
 * grep is for Filtering
 
-** GNU regular expression parser
+*grep* = *GNU regular expression parser*
 
 It can be used in 2 ways
 
-1. List all lines in a file (or files) that match a target string
+1. A command you run in the command line
 
-   I use that to find out "in which file did I use the word
-   'spectacular'?"
+List all lines that match a target string
 
-2. Trim down text output by keeping only the lines that have a 
-   magic word I want.
+I use that to find out "in which file is there a certain word?"
 
+Check the AUTHOR line in each pdb file:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+grep AUTHOR *.pdb
+#+END_SRC
+
+#+RESULTS:
+: cubane.pdb:AUTHOR      DAVE WOODCOCK  95 12 06
+: ethane.pdb:AUTHOR      DAVE WOODCOCK  95 12 18
+: methane.pdb:AUTHOR      DAVE WOODCOCK  95 12 18
+: octane.pdb:AUTHOR      DAVE WOODCOCK  96 01 05
+: pentane.pdb:AUTHOR      DAVE WOODCOCK  95 12 18
+: propane.pdb:AUTHOR      DAVE WOODCOCK  95  12 18
+
+
+2. Suppose we run some command that causes 100s and 100s of lines to
+   spill out into the terminal.  I want to keep only the one that have
+   the part I want. 
+
+A contrived example, running "cat *.pdb" will spill all of the files.
+
+Pipe that to grep to just keep the ones that have "COMPND"
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+cat *.pdb | grep COMPND
+#+END_SRC
+
+#+RESULTS:
+: COMPND      CUBANE
+: COMPND      ETHANE
+: COMPND      METHANE
+: COMPND      OCTANE
+: COMPND      PENTANE
+: COMPND      PROPANE
+
+
+*** What is "regular expression"
+
+It is a fancy language text sub-string matching. Regular expression
+syntax is used a great deal in more advanced shell and programming
+exercises.  Regular expressions give a comprehensive scheme to isolate
+parts of a string, to pick and choose among sub-pieces.
+
+I don't want to teach that now, but can give the big picture.
 
 *regular expression cheat sheet*
 
@@ -1041,52 +1042,75 @@ It can be used in 2 ways
 - . any character
 - * quantifier meaning "any number of times", so ".*" matches whole string
 
-To refer to any of these characters literally, we must "escape" them
-with the backslash.
+Suppose we want to keep only the words out of the molecule files if
+they begin with "ATOM".  Here is the reqular expression recipe I would
+use with grep:
 
-- \^
-- \$
-- \.
-- \*
+#+BEGIN_EXAMPLE
+grep "^ATOM" *.pdb
+#+END_EXAMPLE
+
+If I run that, it will fill up my terminal with output, so I'll
+pipe the result to tail so we see just the last 10 lines:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+grep "^ATOM.*" *.pdb | tail
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+propane.pdb:ATOM      2  C           1      -0.011  -0.441   0.333  1.00  0.00
+propane.pdb:ATOM      3  C           1      -1.176   0.296  -0.332  1.00  0.00
+propane.pdb:ATOM      4  H           1       1.516   0.699  -0.675  1.00  0.00
+propane.pdb:ATOM      5  H           1       2.058  -0.099   0.827  1.00  0.00
+propane.pdb:ATOM      6  H           1       1.035   1.354   0.913  1.00  0.00
+propane.pdb:ATOM      7  H           1      -0.283  -0.691   1.359  1.00  0.00
+propane.pdb:ATOM      8  H           1       0.204  -1.354  -0.225  1.00  0.00
+propane.pdb:ATOM      9  H           1      -0.914   0.551  -1.359  1.00  0.00
+propane.pdb:ATOM     10  H           1      -1.396   1.211   0.219  1.00  0.00
+propane.pdb:ATOM     11  H           1      -2.058  -0.345  -0.332  1.00  0.00
+#+end_example
+
+
+grep has many arguments, we might not want the file name with each
+one, for example
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+grep -h  "^ATOM.*" *.pdb | tail
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+ATOM      2  C           1      -0.011  -0.441   0.333  1.00  0.00
+ATOM      3  C           1      -1.176   0.296  -0.332  1.00  0.00
+ATOM      4  H           1       1.516   0.699  -0.675  1.00  0.00
+ATOM      5  H           1       2.058  -0.099   0.827  1.00  0.00
+ATOM      6  H           1       1.035   1.354   0.913  1.00  0.00
+ATOM      7  H           1      -0.283  -0.691   1.359  1.00  0.00
+ATOM      8  H           1       0.204  -1.354  -0.225  1.00  0.00
+ATOM      9  H           1      -0.914   0.551  -1.359  1.00  0.00
+ATOM     10  H           1      -1.396   1.211   0.219  1.00  0.00
+ATOM     11  H           1      -2.058  -0.345  -0.332  1.00  0.00
+#+end_example
+
+In the Unix system, there are many programs designed for the further
+manipulation of these outputs. In case you ever wander into a help
+page that suggest you use programs like "tr", "sed", "perl" or such,
+you will know (vaguely) what they are talking about.
+
+*** Get out of jail free card for grep users
+
+In some chores, the power to designate "at the beginning of a string"
+is not needed.  
 
 The flag "-F" allows us to use grep as a text scanner, without worring
 about regular expressions.
 
-1. regular expression: comprehensive scheme to isolate parts of a string.
+The word ATOM is used, no matter where it is in the line.
 
-   ** Which file has the string "1.45"?
-
-   Note, since "." is a magic symbol, I must escape it:
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-grep "1\.45" *
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules
+grep "^ATOM.*" *.pdb
 #+END_SRC
-
-#+RESULTS:
-: NENE01736A.txt:1.45925569089
-: NENE01736A.txt:1.45326455695
-: NENE01843A.txt:1.45267098218
-: NENE01843A.txt:1.45220438025
-: NENE01843B.txt:1.45632538433
-: NENE01978B.txt:1.45038474265
-: NENE02043B.txt:1.45917131497
-
-Unless I use the -F flag for fixed text:
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-grep -F "1.45" *
-#+END_SRC
-
-#+RESULTS:
-: NENE01736A.txt:1.45925569089
-: NENE01736A.txt:1.45326455695
-: NENE01843A.txt:1.45267098218
-: NENE01843A.txt:1.45220438025
-: NENE01843B.txt:1.45632538433
-: NENE01978B.txt:1.45038474265
-: NENE02043B.txt:1.45917131497
-
-
 
 2. Pipe to grep
 
@@ -1183,41 +1207,130 @@ tools
 
 We don't want to see all of those files
 
+Perhaps I only want to see the ones that have "txt" in their names:
 
 #+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
-ls -R 
-#+END_SRC
-
-
-In the last 3 lines of the data files, which have the value
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-tail -n3 NENE02040B.txt
-#+END_SRC
-
-
-
-#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
-tail -n3 NENE02040B.txt
-#+END_SRC
-
-
-
-#+BEGIN_SRC sh :results output :exports both :dir /home/pauljohn/work
-echo $PWD
+ls */*/* | grep txt
 #+END_SRC
 
 #+RESULTS:
-: /home/pauljohn/work
+: Users/nelle/notes.txt
+: amino-acids.txt
+: animals.txt
+: morse.txt
+: planets.txt
+: salmon.txt
+: sunspot.txt
+: records.txt
+: haiku.txt
 
 
-#+BEGIN_SRC sh :results output :exports both :dir /tmp
-echo $PWD
-echo $HOSTNAME
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files 
+ls */*/* | grep txt
+#+END_SRC
+
+** Use these skills to check the North Pacific Gyre data
+
+If you are still in the molecules data, this should work to
+change the working directory to north-pacific-gyre/2012-07-03
+
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules 
+cd ../north-pacific-gyre/2012-07-03
+## File check
+ls
 #+END_SRC
 
 #+RESULTS:
-: /tmp
-: 
+#+begin_example
+goodiff
+goostats
+NENE01729A.txt
+NENE01729B.txt
+NENE01736A.txt
+NENE01751A.txt
+NENE01751B.txt
+NENE01812A.txt
+NENE01843A.txt
+NENE01843B.txt
+NENE01971Z.txt
+NENE01978A.txt
+NENE01978B.txt
+NENE02018B.txt
+NENE02040A.txt
+NENE02040B.txt
+NENE02040Z.txt
+NENE02043A.txt
+NENE02043B.txt
+#+end_example
 
+If you are at the top level of the Git clone, do this instead:
+
+#+BEGIN_EXAMPLE
+cd Users/nelle/north-pacific-gyre/2012-07-03
+#+END_EXAMPLE
+
+1. Use wc to check number of lines within each file:
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+wc -l NENE*.txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  300 NENE01729A.txt
+    3 NENE01729B.txt
+  300 NENE01736A.txt
+  300 NENE01751A.txt
+  300 NENE01751B.txt
+  300 NENE01812A.txt
+  300 NENE01843A.txt
+  300 NENE01843B.txt
+  300 NENE01971Z.txt
+  300 NENE01978A.txt
+  300 NENE01978B.txt
+  240 NENE02018B.txt
+  300 NENE02040A.txt
+  300 NENE02040B.txt
+  300 NENE02040Z.txt
+  300 NENE02043A.txt
+  300 NENE02043B.txt
+ 4743 total
+#+end_example
+
+
+   Notes about problem files
+
+   * NENE01729B.txt has only 3 lines. We better double-check the data
+     source
+   * Somebody in the project told me the ones that end in "Z" are
+     probably wrong.  NENE02040Z.txt
+
+
+It is easy to select all the ones that end with A or B. The shell
+Wildcard globbing allows hard brackets like this [AB] to mean either
+"A" or "B"
+
+#+BEGIN_SRC sh :session :dir /home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03 
+ls *[AB].txt
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+NENE01729A.txt
+NENE01729B.txt
+NENE01736A.txt
+NENE01751A.txt
+NENE01751B.txt
+NENE01812A.txt
+NENE01843A.txt
+NENE01843B.txt
+NENE01978A.txt
+NENE01978B.txt
+NENE02018B.txt
+NENE02040A.txt
+NENE02040B.txt
+NENE02043A.txt
+NENE02043B.txt
+#+end_example
 
