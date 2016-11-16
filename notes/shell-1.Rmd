@@ -19,7 +19,6 @@ output:
     keep_md: yes
 ---
 
-A Git entry
 
 ```{r setup, include=FALSE}
 ##This Invisible Chunk is required in all CRMDA documents
