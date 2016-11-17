@@ -1,0 +1,721 @@
+---
+title: "Command Line, Shell"
+subtitle: "Notes #2 for SC Workshop"
+author:
+ - name: Paul Johnson
+   affiliation: Center for Research Methods and Data Analysis, University of Kansas
+   email: pauljohn@ku.edu
+ - name: "CRMDA Guide #41. Please visit [http://crmda.ku.edu/guides](http://crmda.ku.edu/guides) for updates."
+ - name: "Tags: command line, shell, Linux, Terminal"
+abstract:
+    This uses knitr to interleave shell commands and output, using the CRMDA style sheet.
+checked_by: "First Last"
+Note to Authors: please_dont_change_the_next 4 lines!
+date: "`r format(Sys.time(), '%Y %B %d')`"
+output:
+  html_document:
+    css: kutils.css
+    highlight: haddock
+    keep_md: yes
+---
+
+
+```{r setup, include=FALSE}
+##This Invisible Chunk is required in all CRMDA documents
+outdir <- paste0("tmpout")
+options("prompt" = "$ ")
+options("continue" = "$ ")
+
+if (!file.exists(outdir)) dir.create(outdir, recursive = TRUE)
+knitr::opts_chunk$set(engine="bash", echo=TRUE, comment="output:", 
+                      prompt = TRUE, fig.path=paste0(outdir, "/p-"))
+options(width = 75)
+```
+
+
+# Run Git, get files
+
+## Git can retrieve the example data
+
+   git is the name of a "command line" program. We are not discussing
+   Git's larger framework here. It is simply a downloader for us.
+
+## 3 Steps!
+
+   1. Change to a directory in which files can be downloade, and
+   
+   2. Run the following command to obtain a fresh copy of the GitHub
+   repository from the Software Carpentry workshop
+
+      For example, one might open a terminal, create a directory structure 
+      "GIT/github", and then download:
+ 
+```{r, eval=F}
+cd
+mkdir -p GIT/github
+cd GIT/github
+git clone https://github.com/oulib-swc/ou_swc_files.git
+cd ou_swc_files
+```
+
+   3. Change "into" the directory we just downloaded:
+
+```{r, eval=F}
+cd ou_swc_files
+```
+
+```{r, engine="R", include=F}
+gitdir <- "/home/pauljohn/GIT/github/ou_swc_files"   
+knitr::opts_knit$set(root.dir=gitdir)
+```
+   
+This is a *clone*, which simply means a literal copy of the files
+
+
+## *ls*: Inspect those files
+
+1. list the items in the top level directory (ls)
+
+#### list items, with not command line arguments (aka flags){.bs-callout .bs-callout-warning}
+```{r}
+ls
+```
+
+### 
+
+* If we don't have color-coded output from "ls", we need "-F" because
+  that adds "/" on the end of directory names (to distinguish them).
+
+#### list with -F {.bs-callout .bs-callout-warning}
+```{r}
+ls -F
+```
+
+#### -a show hidden items {.bs-callout .bs-callout-danger}
+
+```{r}
+ls -Fa
+```
+
+#### -l to see detailed information {.bs-callout .bs-callout-note}
+
+```{r}
+ls -Fla
+```
+
+#### List contents, including one level below {.bs-callout .bs-callout-info}
+
+```{r}
+ls -F *
+```
+
+
+#### List files recursively with -R {.bs-callout .bs-callout-danger}
+
+```{r}
+  ls -FR 
+```
+
+
+** Use du check disk space used
+
+Default unit of measurement will be value not useful to humans, so add
+"-h" flag to du command
+
+```{r}
+du -h
+```
+
+
+*** Want less detail? add "--max-depth" flag
+
+```{r}
+du -h --max-depth=1
+```
+
+
+# Inspect Contents (cat, head, tail)
+
+## The North Pacific Gyre data
+
+#### cd into directory that has some of Nelle's data {.bs-callout .bs-callout-note}
+
+```{r cd50, eval=F}
+cd Users/nelle/north-pacific-gyre/2012-07-03
+```
+
+```{r, include=F, engine="R"}
+gitdir <- "/home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03" 
+knitr::opts_knit$set(root.dir=gitdir)
+```
+
+#### list the files, with details {.bs-callout .bs-callout-warning}
+
+```{r ls50}
+ls -la
+```
+
+
+## cat file1 file2 file3
+
+_*cat*_ is short for "concatenate" files and write on standard
+output. If there is only one file, this amounts to simply
+writing a file on the screen
+
+#### The "goodiff" file {.bs-callout .bs-callout-danger}
+"cat goodiff" is manageable output (small file)
+
+```{r cat50}
+cat goodiff
+```
+
+This is a "shell script", a series of commands cobbled together.
+
+## head and tail: checking contents of big files
+
+### head
+
+If we simply run "cat NENE02040B.txt" to see what's in there,
+everything will run by on  the screen very quickly. One way to deal
+with that is to only look at the top part of the file
+
+#### head  {.bs-callout .bs-callout-warning}
+```{r}
+head NENE02040B.txt
+```
+
+Head defaults to display 10 lines, but perhaps I only need to see the
+first 5.
+
+```{r head10}
+head -n5 NENE02040B.txt
+```
+
+Here is an example of the long and short style of command line
+argument. The short argument is "-n" with no equal sign, but the long
+version is
+
+```{r head20}
+head --lines=5 NENE02040B.txt
+```
+
+
+### tail: check the last (default: 10) lines
+
+#### tail {.bs-callout .bs-callout-danger}
+```{r tail4}
+tail NENE02040B.txt
+```
+
+   * Perhaps you only wanted the last 3 lines
+
+```{r tail5}
+tail -n3 NENE02040B.txt
+```
+  
+   * Which can be done more succinctly
+
+```{r tail6}
+tail -3 NENE02040B.txt
+```
+
+## more and less
+
+So far as I can tell, more and less are equivalent!  /more/ is an
+older program over which one company asserted ownership, while /less/
+is the free version created in response. Some systems have one, 
+some systems have both. 
+Need to scan entire file?
+
+Running "cat" will spew out the results too fast.  Some terminals
+are able to scroll back in history, but these are not always
+available.
+
+### Run the more program to see "one screen at a time".
+
+#### more {.bs-callout .bs-callout-warning}
+```{r}
+more NENE02040B.txt
+```
+
+*Space bar* to see next screen
+
+*q* to quit
+
+
+# Executable Path
+
+*Question*: Why didn't we have to type "/usr/bin/git"?
+
+## Launch a program by name, including all directory structure
+
+```{r, eval=F}
+$ /usr/bin/git
+```
+
+or 
+
+```{r, eval=F}
+$ /usr/bin/du
+```
+
+We don't usually have to do that for the most frequently used
+programs in the shell.  
+
+## Enter the *PATH*
+
+*PATH* Special directories where the shell can look
+for executable programs.
+
+#### Here's my path {.bs-callout .bs-callout-info}
+
+```{r}
+echo $PATH
+```
+
+On many computers, there will be 100s or 1000s of programs
+available. Many are in the executable path. Perhaps not some
+you might expect to be.
+
+My path has the "bin" directory in my user account, plus lots
+of others that come with the OS.
+
+### Note what Git Bash does
+
+On Git Bash in Windows: the style of the path is different from what
+you might see in Windows description of itself (to see what I mean,
+run the program "cmd" and type "echo %PATH%".)
+
+
+### Text versus GUI programs
+
+#### Text based terminal programs "stay in the terminal".
+
+#### GUI programs can be "launched" onto desktop 
+
+#### **Launch GUI "desktop" programs from the Shell!**
+
+   1 On a Linux/Unix system, simply typing a GUI program's name will
+   launch it on the screen.
+   
+   Examples
+
+```{r, eval=F}
+$ emacs
+```
+
+```{r, eval=F}
+$ firefox
+```
+
+   2. Macintosh
+
+      The open function with a period will open the current directory
+      in the Finder file manager
+
+```{r, eval=F}
+$ open .
+```
+
+      open with a file name (or address)  will ask the OS to open that
+	  program with the default program
+	  
+```{r, eval=F}
+$ open file-name-or-URL
+```
+
+      If you want a different program to be used, insert "-a
+      program-name".  If you don't include "-a program-name" then Mac uses the
+      default program to open the file-name-or-URL
+
+```{r, eval=F}
+$ open -a program-name file-name-or-URL
+```
+
+See: http://brettterpstra.com/2014/08/06/shell-tricks-the-os-x-open-command/
+
+   3. Windows 
+
+      Git Bash will launch Windows programs that are in the Windows System Path!
+
+      2 examples, with and without the special "start" program.
+
+```{r, eval=F}
+$ notepad whatever1.txt
+```
+
+
+```{r, eval=F}
+$ start notepad whatever2.txt
+```
+
+      Usually I'd just do this. I believe it is preferable to interact with
+      projects in this way.
+
+```{r, eval=F}
+$ explorer .
+```
+
+
+## What about programs that are not on the PATH?
+
+   1. We can type out their names in full, beginning with "/"
+
+   2. We can use relative file paths (the "./" trick).
+
+   3. We add them to the path (either temporarily IN the shell or
+      permanently in the OS setup).
+
+### We are swimming upstream, unfortunately
+
+The trend in Windows and Macintosh has been to NOT put programs
+in the PATH. Both of them have created an alternative model
+where programs are installed and they notify the operating system
+about themselves. These systems have a "desktop" metaphor
+where users can 
+
+   1. Launch from Menu
+
+   1. Launch from "open with" feature in file manager
+
+## Add to your OS PATH
+
+Some programs designed for Unix systems will install themselves
+into directories into the PATH.  For these programs, the problem is solved.
+
+If a program does not put its executable into the PATH, then add the
+program's installed directory to the PATH. In Windows, when we install
+*Git*, *Notepad++*, *Emacs*, *R*, and so forth, we always say YES if
+the installer offers to put the programs in the path, and if we are
+not asked, then we do it manually.
+
+Why do this? Terminal users don't want to type a long path like
+"/usr/local/bin/my_program" to launch a program. That inconvenient.
+It is nicer to have "/usr/local/bin" in the PATH!
+
+
+
+# Programs talk to each other
+
+## The Pipe "|"
+
+Many of the traditional Unix functions are build so that the output of
+one function can "go into" another one. Sending "standard output" from
+the first as "standard input" to the follower. Many, not all programs,
+are designed this way.
+
+## Programs I associate with back end of the pipe
+
+- **wc** counts lines or words
+- **sort** sorts output alphabetically
+- **uniq** keeps unique items (sort first)
+- **grep** filters (looks for text strings)
+
+These are still quite frequently used by text analysts. There is a
+host of additional functions for text filtering (not my specialty).
+
+
+## Lets look at User nelle's files on molecules
+
+```{r, include=F, engine="R"}
+gitdir <- "/home/pauljohn/GIT/github/ou_swc_files/Users/nelle/molecules"
+knitr::opts_knit$set(root.dir=gitdir)
+
+```
+
+```{r, eval=F}
+cd Users/nelle/molecules
+```
+#### list the files {.bs-callout .bs-callout-info}
+```{r}
+ls -la
+```
+
+These are small files, we might as well look at one:
+#### list the files {.bs-callout .bs-callout-warning}
+```{r}
+more cubane.pdb
+```
+If the file were bigger, we might just scan the top or the bottom 5
+lines (using head and tail)
+
+```{r}
+head -5 cubane.pdb
+```
+
+```{r}
+tail -5 cubane.pdb
+```
+
+
+
+
+## The wc program
+
+How many lines are there in the file cubane.pdb?
+
+### wc usages {.bs-callout .bs-callout-note}
+```{r}
+wc -l cubane.pdb
+```
+
+How many lines are there in the pdb files?
+
+```{r}
+wc *.pdb
+```
+
+### The output from wc has 3 numbers
+
+   | new lines| words | bytecount |
+
+
+   Usually I just want the number of rows, can add "-l" flag.
+
+#### wc with "-l" to see only the number of lines {.bs-callout .bs-callout-note}
+```{r}
+wc -l *.pdb
+```
+
+
+## Sort the file names according to the number of lines in each
+
+The wc results are out of order.  
+
+The first try to fix that would use the pipe to send them to the sort function:
+
+#### wc piped to sort {.bs-callout .bs-callout-info}
+```{r}
+wc -l *.pdb | sort 
+```
+
+The results are still out of order, need to think harder (read help
+page). sort defaults to an alphabetical search, need to do numerical
+sort:
+
+```{r}
+wc -l *.pdb | sort -n
+```
+
+
+
+## ">" and ">>" for redirecting output
+
+The results (so far) have been printed into the screen. We
+may need a record, so we write them in a file.
+
+**>**  will ERASE a pre-existing file's content
+
+**>>** will add output to a pre-existing files, or create a new file.
+
+Try that with the sorted line list:
+
+#### Save the sorted list into a file "records.txt" {.bs-callout .bs-callout-info}
+```{r}
+wc -l *.pdb | sort -n > records.txt
+```
+
+Check the result by showing the file contents
+
+```{r}
+cat records.txt
+```
+
+
+## Pipe to more or less, for example
+
+Any time output goes by too fast, put "| more" on the end.
+
+I do that so often I never run more or less as the primary command
+
+I often find myself tacking on the end of the command line with either
+
+   - "cat file1 file2 | more"
+
+   - "cat file1 file2 | less"
+
+
+# grep is for Filtering
+
+*grep* = *GNU regular expression parser*
+
+It can be used in 2 ways
+
+## 1. grep, the command.
+
+Here we use grep to display lines in files. Run from the command line,
+it will list all lines that match a target string
+
+I use that to find out "in which file is there a certain word?"
+
+Check the AUTHOR line in each pdb file:
+
+```{r}
+grep AUTHOR *.pdb
+```
+
+
+## 2. grep, the filter (back end of pipe) 
+
+Suppose we run some command that causes 100s and 100s of lines to
+spill out into the terminal.  I want to keep only the one that have
+the part I want.
+
+A contrived example, running "cat *.pdb" will spill all of the files.
+
+Pipe that to grep to just keep the ones that have "COMPND"
+
+```{r}
+cat *.pdb | grep COMPND
+```
+
+
+
+
+
+## What is "regular expression"?
+
+It is a fancy language text sub-string matching. Regular expression
+syntax is used a great deal in more advanced shell and programming
+exercises.  Regular expressions give a comprehensive scheme to isolate
+parts of a string, to pick and choose among sub-pieces.
+
+I don't want to teach regular expressions now, but can give the big
+picture. There are special symbols that help us to spot the beginning
+of a line, for example.
+
+*regular expression cheat sheet*
+
+- **^** beginning of a string
+- **$** end of a string
+- **.** any character
+- * quantifier meaning "any number of times"
+
+I hope this is not too obvious to state: The regular expression period
+asterix, ".*", matches whole string (it is anything "." any number of 
+times "*").
+
+#### grep using a regular expression {.bs-callout .bs-callout-info}
+Suppose we want to keep only the words out of the molecule files if
+they begin with "ATOM".  We use the regular expression symbol "^"
+to indicate we are only interested in the beginning of each
+string:
+
+```{r, eval=F}
+grep "^ATOM" *.pdb
+```
+
+If I run that, it will fill up my terminal with output, so I'll
+pipe the result to tail so we see just the last 10 lines:
+
+
+```{r}
+grep "^ATOM.*" *.pdb | tail -3
+```
+
+grep has many arguments, we might not want the file name with each
+one, for example
+
+```{r}
+grep -h  "^ATOM.*" *.pdb | tail
+```
+
+##
+
+In the Unix system, there are many programs designed for the further
+manipulation of these outputs. In case you ever wander into a help
+page that suggest you use programs like "tr", "sed", "perl" or such,
+you will know (vaguely) what they are talking about.
+
+## Regular Expressions are not required 
+
+This is a get out of jail free card for grep users. Regular expression
+matching can be turned off, so that just ordinary shell globs are used.
+The flag "-F" allows us to use grep as a text scanner, without worring
+about regular expressions.
+
+In this example, we don't really need regular expressions because 
+the word ATOM is always at the beginning of a line.  We get what we
+want with just an ordinary literal search term.
+
+```{r}
+grep "ATOM.*" *.pdb | tail -3
+```
+
+## Using grep to filter command line output
+
+A command that causes profuse output--say a huge list of
+files--can be filtered by piping the output to grep.
+
+Suppose we start back at the top level of the `ou_swc_files` directory
+
+```{r, engine="R", include=F}
+gitdir <- '/home/pauljohn/GIT/github/ou_swc_files'
+knitr::opts_knit$set(root.dir=gitdir)
+```
+
+```{r}
+ls -R
+```
+
+We don't want to see all of those files
+
+Perhaps I only want to see the ones that have "txt" in their names. To
+reduce the output, I'll pipe the full list to tail:
+
+```{r}
+ls -R | grep txt | tail
+```
+
+## Use these skills to check the North Pacific Gyre data
+
+
+#### Change the working directory {.bs-callout .bs-callout-note}
+
+If you are still in the molecules data, the following command should
+work to change the working directory to north-pacific-gyre/2012-07-03
+
+```{r, include=F, engine="R"}
+gitdir <- "/home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre/2012-07-03"
+knitr::opts_knit$set(root.dir=gitdir)
+```
+
+```{r, eval=F}
+cd ../north-pacific-gyre/2012-07-03
+## File check
+ls
+```
+
+If you are at the top level of the Git clone folder `ou_swc_files`, do
+this instead:
+
+```{r, eval=F}
+cd Users/nelle/north-pacific-gyre/2012-07-03
+```
+
+#### Inspect the gyre data {.bs-callout .bs-callout-note}
+
+1. Use wc to check number of lines within each file:
+
+```{r}
+wc -l NENE*.txt
+```
+
+   Notes about problem files
+
+   * NENE02018B.txt does not have as many lines. We better
+     double-check the data source
+   * Somebody in the project told me the ones that end in "Z" are
+     probably wrong. For example, NENE02040Z.txt
+
+
+2. Use [] in a shell glob for matchin A and B files
+
+It is easy to select all the ones that end with A or B. The shell
+Wildcard globbing allows hard brackets like this [AB] to mean either
+"A" or "B"
+
+```{r}
+ls *[AB].txt
+```
+
