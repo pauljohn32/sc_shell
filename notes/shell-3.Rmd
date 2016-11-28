@@ -16,8 +16,10 @@ Note to Authors: please_dont_change_the_next 4 lines!
 date: "`r format(Sys.time(), '%Y %B %d')`"
 output:
   html_document:
+    css: ~/R/x86_64-pc-linux-gnu-library/3.3/crmda/extdata/theme/kutils.css
     highlight: haddock
     keep_md: yes
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

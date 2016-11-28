@@ -6,7 +6,7 @@
 
 # Process lots of files
 
-#### Fairly common problem {.bs-callout .bs.callout-red}
+#### Fairly common problem {.bs-callout .bs-callout-red}
 
 1. Data collection generates 1000s of data files and each one must be
    processed separately.
@@ -17,7 +17,7 @@
 3. Vacation photos are saved in super high resolution and we need to
    convert each one to something smaller for Instagram.
 
-#### The shell offers a convenient "for" loop that can handle this. {.bs-callout .bs.callout-warning}
+#### The shell offers a convenient "for" loop that can handle this. {.bs-callout .bs-callout-orange}
 
 ```
 for index ...items list here...
@@ -33,7 +33,7 @@ done
    of the things, one at a time
 3. Keywords *do* and *done* are bookmarks for a sequence of shell statements.
 
-#### My Vacation Photo example. {.bs-callout .bs.callout-info}
+#### My Vacation Photo example. {.bs-callout .bs-callout-blue}
 
 When I went on vacation, I saved photos that were way too huge. There
 is a handy free program named "convert" that can rescale images
@@ -129,18 +129,20 @@ output: NENE02043A.txt
 output: NENE02043B.txt
 ```
 
-#Our Assignment: Run each txt files through a data processing script.
+# Our Assignment: Run each txt file through a data processing script.
 
 Recall the problems unearthed in data inspection
 
    1. One file too small
    2. The Z-ending files are not useful
  
-The shell script "goostats" is used to process each file and
-create a new data file.
+    We are going to ignore problem 1 and deal with 2 by selectively
+	processing files.
+
+## The shell script "goostats" is used to process each file and create a new data file.
 
 
-#### My opinion on where the output should go {.bs-callout .bs-callout-danger}
+#### My opinion on where the output should go {.bs-callout .bs-callout-red}
 
 - I strongly prefer to keep the output in a separate output directory.
 - And I would almost certainly put the output directory outside the
@@ -150,25 +152,27 @@ create a new data file.
 
 
 
-
 ```bash
 $ mkdir ../output
 ```
 
-
 Why do I like that? No danger of disrupting original data.
 
-In fact, I'd make the original data read only like so
+In fact, I'd make the original data "read only", taking
+away write permissions like so
 
 ```
 chmod -w N*.txt
 ```
 
+Projects I organize will have many separate folders.
+
+
 ## goostats is a script included with the project. 
 
-Our assignment is to run each file through goostats. 
+Our assignment is to run goostats for each data file. 
 
-#### run goostats once {.bs-callout .bs-callout-warning}
+#### run goostats once {.bs-callout .bs-callout-orange}
 
    * The correct way to process just one file, including 2 parameters
      that professor said we needed: 
@@ -197,7 +201,7 @@ $ rm -rf  "../output"
 ```
 
 
-#### Run goostats in a for loop: *over and over* {.bs-callout .bs.callout-note}
+#### Run goostats in a for loop: *over and over* {.bs-callout .bs-callout-gray}
 
 ```
 $ mkdir ../output
@@ -207,13 +211,18 @@ $ for fn in *[AB].txt
 > done
 ```
 
+## That was "in" the command line
 
+I did not make a script file. I relied on the patience of the shell
+to let me type all of that in.
 
-
+If I have to run this more than once, I'd rather save the commands
+into a file that I can use over and over.  That's the topic of the
+next section.
 
 # Scripts and command line arguments
 
-#### The Big Picture {.bs-callout .bs.callout-danger}
+#### The Big Picture {.bs-callout .bs-callout-red}
 
 1. Test commands that work in the command line
 2. Put those lines into a file
@@ -224,7 +233,7 @@ $ for fn in *[AB].txt
 
 ## Write a script
 
-### Create the text file "dostats.sh".
+#### Create the script file--a text file--named "dostats.sh".{.bs-callout .bs-callout-green}
 
 It looks nicer to write it like this:
 
@@ -242,7 +251,16 @@ But it is allowed to use semi-colon to jamb it into one line
 for fn in *[AB].txt; do  echo $fn;  bash goostats -J 100 -r "$fn" "../output/stats-$fn"; done
 ```
 
-### Deal with the command line arguments
+At the command line, if we type
+
+```
+$ bash dostats.sh
+```
+
+the script will run in a BASH shell
+
+
+## Use command line arguments
 
 Now we have the file names hard coded in the script as *[AB].txt. 
 We'd rather be flexible.
@@ -263,11 +281,11 @@ $ done
 ## More about command line arguments
 
 The shell command line arguments can be handled in many ways. The
-simple way simply used arguments by their position in the command
-line. This is not the best way, since there is no error checking
-on the inputs. However, it is commonly used in small projects.
+simple way simply we describe next is not the best way, since there is
+no error checking on the inputs. However, it is commonly used in small
+projects.
 
-### Key Terms
+#### Key Terms: $1 and $@. {.bs-callout .bs-callout-orange}
 
 Inside a shell script, these are the simple ways to access command
 line arguments.
@@ -281,13 +299,12 @@ line arguments.
 
 2. $@ collects up all of the command line arguments.
 
-More rigorous ways exist to name and check command
-line arguments. Don't get too committed to the simple
-$1 $2 notation.
+More rigorous ways exist to name and check command line
+arguments. Don't get too committed to the simple $1 $2 notation.
 
-### Lets make a little test case.  
+#### Lets make a little test case. .{.bs-callout .bs-callout-gray}
 
-*mytest.sh*
+Write the following into a file named *mytest.sh*
 
 ```
 echo "$1"
@@ -302,7 +319,7 @@ space or other illegal character, script would break.
 
 Test that in the command line
 
-1. Two argouments with no spaces
+1. Two arguments with no spaces
 
 ```
 sh mytest.sh hellopaul hellobill
@@ -314,9 +331,9 @@ sh mytest.sh hellopaul hellobill
 sh mytest.sh hello paul hellobill
 ```
 
-3. Need to quote the argument to keep the pieces together. Only way
-   that $1 will work correctly is to quote the first argument, to keep
-   it together.
+The shell can't tell you want the first argument to be "hello paul"
+
+3. Quotation marks can keep that argument together, so $1 will work.
 
 ```
 sh mytest.sh "hello paul" hellobill
@@ -334,8 +351,7 @@ goostats infile.txt outfile.txt
    1. goostats.sh is not executable, and
    1. goostats.sh is not in the path
 
-#### Working around problem that goostats is not executable
-{.bs-callout .bs-callout-warning}
+#### Working around problem that goostats is not executable{.bs-callout .bs-callout-orange}
 
 So we can't run it
 
@@ -383,7 +399,7 @@ luxury might not be available, while `sh` almost certainly will be.
   "bash". That's not unheard of, but it would be somewhat unusual to 
   do this when the work is finished.
 
-### The hash-bang specifies a shell in line 1 {.bs-callout .bs-callout-warning}
+#### The hash-bang specifies a shell in line 1 {.bs-callout .bs-callout-orange}
 
 * #! is pronounced "hash bang". 
 
