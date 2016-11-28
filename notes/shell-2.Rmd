@@ -76,7 +76,7 @@ This is a *clone*, which simply means a literal copy of the files
 
 1. list the items in the top level directory (ls)
 
-#### list items, with not command line arguments (aka flags){.bs-callout .bs-callout-warning}
+#### list items, with not command line arguments (aka flags){.bs-callout .bs-callout-orange}
 ```{r}
 ls
 ```
@@ -86,31 +86,31 @@ ls
 * If we don't have color-coded output from "ls", we need "-F" because
   that adds "/" on the end of directory names (to distinguish them).
 
-#### list with -F {.bs-callout .bs-callout-warning}
+#### list with -F {.bs-callout .bs-callout-orange}
 ```{r}
 ls -F
 ```
 
-#### -a show hidden items {.bs-callout .bs-callout-danger}
+#### -a show hidden items {.bs-callout .bs-callout-red}
 
 ```{r}
 ls -Fa
 ```
 
-#### -l to see detailed information {.bs-callout .bs-callout-note}
+#### -l to see detailed information {.bs-callout .bs-callout-blue}
 
 ```{r}
 ls -Fla
 ```
 
-#### List contents, including one level below {.bs-callout .bs-callout-info}
+#### List contents, including one level below {.bs-callout .bs-callout-gray}
 
 ```{r}
 ls -F *
 ```
 
 
-#### List files recursively with -R {.bs-callout .bs-callout-danger}
+#### List files recursively with -R {.bs-callout .bs-callout-red}
 
 ```{r}
   ls -FR 
@@ -138,7 +138,7 @@ du -h --max-depth=1
 
 ## The North Pacific Gyre data
 
-#### cd into directory that has some of Nelle's data {.bs-callout .bs-callout-note}
+#### cd into directory that has some of Nelle's data {.bs-callout .bs-callout-blue}
 
 ```{r cd50, eval=F}
 cd Users/nelle/north-pacific-gyre/2012-07-03
@@ -149,7 +149,7 @@ gitdir <- "/home/pauljohn/GIT/github/ou_swc_files/Users/nelle/north-pacific-gyre
 knitr::opts_knit$set(root.dir=gitdir)
 ```
 
-#### list the files, with details {.bs-callout .bs-callout-warning}
+#### list the files, with details {.bs-callout .bs-callout-orange}
 
 ```{r ls50}
 ls -la
@@ -162,7 +162,7 @@ _*cat*_ is short for "concatenate" files and write on standard
 output. If there is only one file, this amounts to simply
 writing a file on the screen
 
-#### The "goodiff" file {.bs-callout .bs-callout-danger}
+#### The "goodiff" file {.bs-callout .bs-callout-red}
 "cat goodiff" is manageable output (small file)
 
 ```{r cat50}
@@ -179,7 +179,7 @@ If we simply run "cat NENE02040B.txt" to see what's in there,
 everything will run by on  the screen very quickly. One way to deal
 with that is to only look at the top part of the file
 
-#### head  {.bs-callout .bs-callout-warning}
+#### head  {.bs-callout .bs-callout-orange}
 ```{r}
 head NENE02040B.txt
 ```
@@ -202,7 +202,7 @@ head --lines=5 NENE02040B.txt
 
 ### tail: check the last (default: 10) lines
 
-#### tail {.bs-callout .bs-callout-danger}
+#### tail {.bs-callout .bs-callout-red}
 ```{r tail4}
 tail NENE02040B.txt
 ```
@@ -233,7 +233,7 @@ available.
 
 ### Run the more program to see "one screen at a time".
 
-#### more {.bs-callout .bs-callout-warning}
+#### more {.bs-callout .bs-callout-orange}
 ```{r}
 more NENE02040B.txt
 ```
@@ -267,7 +267,7 @@ programs in the shell.
 *PATH* Special directories where the shell can look
 for executable programs.
 
-#### Here's my path {.bs-callout .bs-callout-info}
+#### Here's my path {.bs-callout .bs-callout-gray}
 
 ```{r}
 echo $PATH
@@ -426,13 +426,13 @@ knitr::opts_knit$set(root.dir=gitdir)
 ```{r, eval=F}
 cd Users/nelle/molecules
 ```
-#### list the files {.bs-callout .bs-callout-info}
+#### list the files {.bs-callout .bs-callout-gray}
 ```{r}
 ls -la
 ```
 
 These are small files, we might as well look at one:
-#### list the files {.bs-callout .bs-callout-warning}
+#### list the files {.bs-callout .bs-callout-orange}
 ```{r}
 more cubane.pdb
 ```
@@ -454,7 +454,7 @@ tail -5 cubane.pdb
 
 How many lines are there in the file cubane.pdb?
 
-### wc usages {.bs-callout .bs-callout-note}
+### wc usages {.bs-callout .bs-callout-blue}
 ```{r}
 wc -l cubane.pdb
 ```
@@ -472,7 +472,7 @@ wc *.pdb
 
    Usually I just want the number of rows, can add "-l" flag.
 
-#### wc with "-l" to see only the number of lines {.bs-callout .bs-callout-note}
+#### wc with "-l" to see only the number of lines {.bs-callout .bs-callout-blue}
 ```{r}
 wc -l *.pdb
 ```
@@ -484,7 +484,7 @@ The wc results are out of order.
 
 The first try to fix that would use the pipe to send them to the sort function:
 
-#### wc piped to sort {.bs-callout .bs-callout-info}
+#### wc piped to sort {.bs-callout .bs-callout-gray}
 ```{r}
 wc -l *.pdb | sort 
 ```
@@ -510,7 +510,7 @@ may need a record, so we write them in a file.
 
 Try that with the sorted line list:
 
-#### Save the sorted list into a file "records.txt" {.bs-callout .bs-callout-info}
+#### Save the sorted list into a file "records.txt" {.bs-callout .bs-callout-gray}
 ```{r}
 wc -l *.pdb | sort -n > records.txt
 ```
@@ -595,7 +595,7 @@ I hope this is not too obvious to state: The regular expression period
 asterix, ".*", matches whole string (it is anything "." any number of 
 times "*").
 
-#### grep using a regular expression {.bs-callout .bs-callout-info}
+#### grep using a regular expression {.bs-callout .bs-callout-gray}
 Suppose we want to keep only the words out of the molecule files if
 they begin with "ATOM".  We use the regular expression symbol "^"
 to indicate we are only interested in the beginning of each
@@ -670,7 +670,7 @@ ls -R | grep txt | tail
 ## Use these skills to check the North Pacific Gyre data
 
 
-#### Change the working directory {.bs-callout .bs-callout-note}
+#### Change the working directory {.bs-callout .bs-callout-blue}
 
 If you are still in the molecules data, the following command should
 work to change the working directory to north-pacific-gyre/2012-07-03
@@ -693,7 +693,7 @@ this instead:
 cd Users/nelle/north-pacific-gyre/2012-07-03
 ```
 
-#### Inspect the gyre data {.bs-callout .bs-callout-note}
+#### Inspect the gyre data {.bs-callout .bs-callout-blue}
 
 1. Use wc to check number of lines within each file:
 
